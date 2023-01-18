@@ -1,6 +1,6 @@
 {
     "name": "(Re)sources",
-    "short_name": "Re",
+    "short_name": "(Re)sources",
     "start_url": "/",
     "scope": "/",
     "icons": [
@@ -17,6 +17,6 @@
         }
     ],
     "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "background_color": "#292929",
     "display": "standalone"
 }
