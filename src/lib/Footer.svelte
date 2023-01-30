@@ -23,15 +23,17 @@
 	<a href="/ressources">
 		<div class="button" aria-current={$page.url.pathname === '/ressources' ? 'page' : undefined}>
 			<svg
-				id="Layer_1"
-				style="enable-background:new 0 0 16 16;"
+				class="svg-icon"
+				style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden; enable-background:new 0 0 16 16;"
+				viewBox="0 0 1024 1024"
 				version="1.1"
-				viewBox="0 0 16 16"
-				xml:space="preserve"
 				xmlns="http://www.w3.org/2000/svg"
-				xmlns:xlink="http://www.w3.org/1999/xlink"
 				><path
-					d="M15.45,7L14,5.551V2c0-0.55-0.45-1-1-1h-1c-0.55,0-1,0.45-1,1v0.553L9,0.555C8.727,0.297,8.477,0,8,0S7.273,0.297,7,0.555  L0.55,7C0.238,7.325,0,7.562,0,8c0,0.563,0.432,1,1,1h1v6c0,0.55,0.45,1,1,1h3v-5c0-0.55,0.45-1,1-1h2c0.55,0,1,0.45,1,1v5h3  c0.55,0,1-0.45,1-1V9h1c0.568,0,1-0.437,1-1C16,7.562,15.762,7.325,15.45,7z"
+					d="M848 232v672H288V232h560m0-56H288c-30.9 0-56 25.1-56 56v672c0 30.9 25.1 56 56 56h560c30.9 0 56-25.1 56-56V232c0-30.9-25.1-56-56-56z"
+				/><path
+					d="M736 120v56H288l-56 56v560h-56V120h560m0-56H176c-30.9 0-56 25.1-56 56v672c0 30.9 25.1 56 56 56h112V232h504V120c0-30.9-25.1-56-56-56z"
+				/><path
+					d="M708.9 428h-280c-15.5 0-28-12.5-28-28s12.5-28 28-28h280c15.5 0 28 12.5 28 28s-12.6 28-28 28zM708.9 596h-280c-15.5 0-28-12.5-28-28s12.5-28 28-28h280c15.5 0 28 12.5 28 28s-12.6 28-28 28zM708.9 764h-280c-15.5 0-28-12.5-28-28s12.5-28 28-28h280c15.5 0 28 12.5 28 28s-12.6 28-28 28z"
 				/></svg
 			>
 			<p>Ressources</p>
@@ -39,17 +41,10 @@
 	</a>
 	<a href="/account">
 		<div class="button" aria-current={$page.url.pathname === '/account' ? 'page' : undefined}>
-			<svg
-				id="Layer_1"
-				style="enable-background:new 0 0 16 16;"
-				version="1.1"
-				viewBox="0 0 16 16"
-				xml:space="preserve"
-				xmlns="http://www.w3.org/2000/svg"
-				xmlns:xlink="http://www.w3.org/1999/xlink"
+			<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
 				><path
-					d="M15.45,7L14,5.551V2c0-0.55-0.45-1-1-1h-1c-0.55,0-1,0.45-1,1v0.553L9,0.555C8.727,0.297,8.477,0,8,0S7.273,0.297,7,0.555  L0.55,7C0.238,7.325,0,7.562,0,8c0,0.563,0.432,1,1,1h1v6c0,0.55,0.45,1,1,1h3v-5c0-0.55,0.45-1,1-1h2c0.55,0,1,0.45,1,1v5h3  c0.55,0,1-0.45,1-1V9h1c0.568,0,1-0.437,1-1C16,7.562,15.762,7.325,15.45,7z"
-				/></svg
+					d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z"
+				/><path fill="none" d="M0 0h48v48H0z" /></svg
 			>
 			<p>Compte</p>
 		</div>
