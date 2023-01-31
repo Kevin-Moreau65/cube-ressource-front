@@ -22,12 +22,7 @@
 	</a>
 	<a href="/ressources">
 		<div class="button" aria-current={$page.url.pathname === '/ressources' ? 'page' : undefined}>
-			<svg
-				class="svg-icon"
-				style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden; enable-background:new 0 0 16 16;"
-				viewBox="0 0 1024 1024"
-				version="1.1"
-				xmlns="http://www.w3.org/2000/svg"
+			<svg class="svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
 				><path
 					d="M848 232v672H288V232h560m0-56H288c-30.9 0-56 25.1-56 56v672c0 30.9 25.1 56 56 56h560c30.9 0 56-25.1 56-56V232c0-30.9-25.1-56-56-56z"
 				/><path
@@ -41,10 +36,10 @@
 	</a>
 	<a href="/account">
 		<div class="button" aria-current={$page.url.pathname === '/account' ? 'page' : undefined}>
-			<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
 				><path
-					d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z"
-				/><path fill="none" d="M0 0h48v48H0z" /></svg
+					d="M10 9a6 6 0 1 1 6 6 6 6 0 0 1-6-6Zm16 20H6a3 3 0 0 1-3-3 9 9 0 0 1 9-9h8a9 9 0 0 1 9 9 3 3 0 0 1-3 3Z"
+				/></svg
 			>
 			<p>Compte</p>
 		</div>
@@ -78,6 +73,7 @@
 
 	.button svg {
 		width: 27px;
+		aspect-ratio: 1/1;
 		margin-bottom: 10px;
 	}
 	.button[aria-current='page'] svg {
