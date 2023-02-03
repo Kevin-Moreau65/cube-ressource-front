@@ -14,7 +14,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: start;
-		position: fixed;
+		position: sticky;
 		top: 0;
 		left: 0;
 	}
@@ -25,7 +25,14 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		margin-right: 80px;
+	}
+	input {
+		all: unset;
+		border: solid 1px var(--accent-color);
+		background-color: var(--secondary-color);
+		border-radius: 5px;
+		width: 85%;
+		height: 37px;
 	}
 
 	img {

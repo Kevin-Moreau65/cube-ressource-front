@@ -2,14 +2,25 @@
 
 :root {
 	--primary-color: #1d8dc5;
+	--secondary-color: #0E4E99;
+	--accent-color: #9F73B2;
+}
+
+html {
+	height: 100%;
+	overflow: hidden;
 }
 
 body {
-	min-height: 100vh;
+	height: 100%;
 	margin: 0;
 	font-family: 'Open Sans', sans-serif;
 }
 
 a {
 	all: unset;
+}
+
+* {
+	box-sizing: border-box;
 }
