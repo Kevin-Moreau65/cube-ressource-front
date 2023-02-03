@@ -33,6 +33,12 @@
 		border-radius: 5px;
 		width: 85%;
 		height: 37px;
+		color: white;
+	}
+	::placeholder {
+		/* Chrome, Firefox, Opera, Safari 10.1+ */
+		color: var(--accent-color);
+		opacity: 1; /* Firefox */
 	}
 
 	img {
