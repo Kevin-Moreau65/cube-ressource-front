@@ -7,10 +7,22 @@
 </svelte:head>
 
 <section>
-	<p>Bonjour je suis la description</p>
+	<div class="logo">
+		<img src="/Ressources_logo.svg" alt="Logo Ressources" />
+	</div>
+	<p>Description de l'application à faire ici !</p>
 </section>
 
 <style>
+	.logo {
+		width: 100%;
+		height: 225px;
+	}
+
+	.logo img {
+		width: 100%;
+		height: 100%;
+	}
 	section {
 		text-align: center;
 	}
