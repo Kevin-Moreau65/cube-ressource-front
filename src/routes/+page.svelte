@@ -7,7 +7,11 @@
 </svelte:head>
 
 <section>
+	<p>Bonjour je suis la description</p>
 </section>
 
 <style>
+	section {
+		text-align: center;
+	}
 </style>
