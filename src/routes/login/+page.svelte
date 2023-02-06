@@ -13,7 +13,7 @@
 	{#if toLogin}
 		<FormLogin />
 	{:else}
-		<FormSignUp />
+		<FormSignUp bind:toLogin />
 	{/if}
 	<p class="switch" on:click={switchForm} on:keypress={switchForm}>
 		{toLogin ? 'Pas de compte ? Cliquez ici !' : 'Vous avez déjà un compte ? Cliquez ici !'}

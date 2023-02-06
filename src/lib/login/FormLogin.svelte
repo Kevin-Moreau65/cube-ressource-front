@@ -1,10 +1,21 @@
 <script>
+	import { goto } from '$app/navigation';
 	import Button from '$lib/Button.svelte';
 	import { login } from '$lib/models/account';
+	import toast from '$lib/toast/store/toast';
 	let email = '';
 	let password = '';
 	const handleSubmit = async () => {
-		await login(email, password);
+		const res = await login(email, password);
+		if (res.statusCode === 200) {
+			goto('/account');
+		} else {
+			toast.push({
+				message: res.message || 'Une erreur est survenue, veuillez réessayer',
+				type: 'error',
+				timeout: 5000
+			});
+		}
 	};
 </script>
 
