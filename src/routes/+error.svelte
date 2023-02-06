@@ -28,7 +28,7 @@
 	.error {
 		margin-bottom: 0%;
 		width: 100%;
-		height: 300px;
+		height: 200px;
 	}
 
 	.error img {
