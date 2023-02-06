@@ -53,14 +53,11 @@
 	}
 	.main {
 		background-color: var(--primary-color);
-		height: 75px;
+		height: 100%;
 		width: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: space-evenly;
-		position: sticky;
-		bottom: 0px;
-		left: 0;
 	}
 
 	.button {

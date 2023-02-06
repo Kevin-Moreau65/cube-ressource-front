@@ -1,7 +1,7 @@
 import { writable, type Writable } from 'svelte/store';
 
 type Account = {
-	id: string | null;
+	id: number | null;
 	firstname: string;
 	lastname: string;
 	nickname: string;

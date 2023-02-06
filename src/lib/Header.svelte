@@ -9,14 +9,11 @@
 <style>
 	.main {
 		background-color: var(--primary-color);
-		height: 50px;
+		height: 100%;
 		width: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: start;
-		position: sticky;
-		top: 0;
-		left: 0;
 	}
 
 	.search {
