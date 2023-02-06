@@ -1,12 +1,18 @@
 <script>
 	import Button from '$lib/Button.svelte';
+	import { login } from '$lib/models/account';
+	let email = '';
+	let password = '';
+	const handleSubmit = async () => {
+		await login(email, password);
+	};
 </script>
 
-<form action="/" method="post">
+<form on:submit|preventDefault={handleSubmit}>
 	<label for="email">Email</label>
-	<input type="text" name="email" />
+	<input type="text" name="email" bind:value={email} />
 	<label for="password">Mot de passe</label>
-	<input type="password" name="password" />
+	<input type="password" name="password" bind:value={password} />
 	<Button buttonType="submit" title="Se connecter" />
 </form>
 
