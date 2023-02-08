@@ -1,12 +1,16 @@
 <script>
 	import { goto } from '$app/navigation';
 	import Button from '$lib/Button.svelte';
+	import Loading from '$lib/Loading.svelte';
 	import { login } from '$lib/models/account';
 	import toast from '$lib/toast/store/toast';
 	let email = '';
 	let password = '';
+	let isLoading = false;
 	const handleSubmit = async () => {
+		isLoading = true;
 		const res = await login(email, password);
+		isLoading = false;
 		if (res.statusCode === 200) {
 			goto('/account');
 		} else {
@@ -19,6 +23,9 @@
 	};
 </script>
 
+{#if isLoading}
+	<Loading />
+{/if}
 <form on:submit|preventDefault={handleSubmit}>
 	<label for="email">Email</label>
 	<input type="text" name="email" bind:value={email} />
