@@ -59,6 +59,16 @@
 				</p>
 			</div>
 		</div>
+		<div class="pagination">
+			<a href="#">&laquo;</a>
+			<a href="#">1</a>
+			<a href="#">2</a>
+			<a href="#">3</a>
+			<a href="#">4</a>
+			<a href="#">5</a>
+			<a href="#">6</a>
+			<a href="#">&raquo;</a>
+		</div>
 	</div>
 </div>
 
@@ -123,5 +133,23 @@
 		/* Chrome, Firefox, Opera, Safari 10.1+ */
 		color: var(--accent-color);
 		opacity: 1; /* Firefox */
+	}
+
+	.pagination {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		gap: 7px;
+		width: 100%;
+	}
+
+	.pagination a {
+		color: black;
+		padding: 8px 16px;
+		text-decoration: none;
+		cursor: pointer;
+	}
+	.pagination a:hover {
+		background-color: var(--accent-color);
 	}
 </style>
