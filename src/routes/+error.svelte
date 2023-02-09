@@ -34,21 +34,22 @@
 	.error img {
 		width: 100%;
 		height: 100%;
-		margin-bottom: 0%;
+		margin-top: 6%;
 	}
 	section {
 		text-align: center;
 	}
 	h1 {
 		text-align: center;
+		margin-top: 10%;
 	}
 	h2 {
 		text-align: center;
-		margin-bottom: 5%;
+		margin-top: 8%;
 	}
 	h3 {
 		text-align: center;
 		margin-top: 0%;
-		margin-bottom: 10%;
+		margin-bottom: 4%;
 	}
 </style>

@@ -6,7 +6,7 @@
 <div class="main">
 	<div class="top-button">
 		<input type="text" placeholder="Rechercher une ressource" />
-		<a href="/">
+		<a href="/filter">
 			<Button title="Filtrer" link="/" buttonType="button" style="height: auto;" />
 		</a>
 	</div>
