@@ -138,9 +138,11 @@
 	.pagination {
 		display: flex;
 		flex-direction: row;
+		align-items: center;
 		justify-content: center;
 		gap: 7px;
 		width: 100%;
+		padding-bottom: 10px;
 	}
 
 	.pagination a {
@@ -148,8 +150,13 @@
 		padding: 8px 16px;
 		text-decoration: none;
 		cursor: pointer;
+		border: solid 1px black;
 	}
 	.pagination a:hover {
 		background-color: var(--accent-color);
+	}
+	.pagination a:nth-child(1),
+	.pagination a:nth-last-child(1) {
+		background-color: var(--secondary-color);
 	}
 </style>
