@@ -18,7 +18,7 @@
 
 <section>
 	<a href="/">
-		<div class="button" aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
+		<div class="button">
 			<Button title="Revenir à l'accueil" link="/" buttonType="button" />
 		</div>
 	</a>
