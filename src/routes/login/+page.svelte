@@ -32,5 +32,6 @@
 	.switch {
 		color: var(--secondary-color);
 		text-decoration: underline;
+		cursor: pointer;
 	}
 </style>

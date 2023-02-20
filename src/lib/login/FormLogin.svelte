@@ -12,7 +12,7 @@
 		const res = await login(email, password);
 		isLoading = false;
 		if (res.statusCode === 200) {
-			goto('/account');
+			goto('/');
 		} else {
 			toast.push({
 				message: res.message || 'Une erreur est survenue, veuillez réessayer',

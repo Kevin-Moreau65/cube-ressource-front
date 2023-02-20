@@ -1,4 +1,7 @@
 import { account } from '$lib/store';
+import { Role } from '$lib/store';
+import { redirect } from '@sveltejs/kit';
+import { get } from 'svelte/store';
 export interface ZoneGEO {
 	id: number;
 	code: number;
@@ -9,22 +12,16 @@ export interface ZoneGEO {
 	user?: User[];
 }
 
-export interface Role {
-	id: number;
-	nomRole: string;
-	user?: User[];
-}
-
 export interface User {
 	id: number;
 	nom: string;
 	prenom: string;
 	email: string;
-	password: string;
+	// password: string;
 	telephone: string;
 	pseudo: string;
 	dateCreation: Date;
-	isDeleted: boolean;
+	// isDeleted: boolean;
 	isConfirm: boolean;
 	idZoneGeo: number;
 	zone_GEO: ZoneGEO;
@@ -43,7 +40,8 @@ export const login = async (email: string, password: string) => {
 			id: 1,
 			firstname: 'Kévin',
 			lastname: 'Moreau',
-			nickname: 'Kéké65'
+			nickname: 'Kéké65',
+			role: Role.User
 		});
 		return { statusCode: 200 };
 	} else {
@@ -70,14 +68,34 @@ export const signUp = async (
 			id: 1,
 			firstname: 'Kévin',
 			lastname: 'Moreau',
-			nickname: 'Kéké65'
+			nickname: 'Kéké65',
+			role: Role.User
 		});
 		const timeout = (ms: number) => {
 			return new Promise((resolve) => setTimeout(resolve, ms));
 		};
-		await timeout(5000);
+		await timeout(3000);
 		return { statusCode: 200 };
 	} else {
 		return { statusCode: 400, message: 'Une erreur est survenue' };
 	}
+};
+
+export const getAccount = async (id: number) => {
+	const acc = get(account);
+	if (acc.id !== id && acc.role === Role.User) {
+		throw redirect(302, '/');
+	}
+	// const res = await fetch(`https://api.com/account/${id}`);
+	// const data: { statusCode: string; message?: string; account: User } = await res.json();
+	const data = {
+		account: {
+			id: 1,
+			prenom: 'Kévin',
+			nom: 'Moreau',
+			pseudo: 'Kéké',
+			role: Role.User
+		}
+	};
+	return data;
 };
