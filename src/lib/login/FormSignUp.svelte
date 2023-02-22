@@ -90,7 +90,7 @@
 	<Button buttonType="submit" title="Créer un compte" />
 </form>
 
-<style>
+<style lang="scss">
 	form {
 		display: flex;
 		flex-direction: column;
