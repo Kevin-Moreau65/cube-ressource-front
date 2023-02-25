@@ -5,9 +5,9 @@
 
 	let isLoading = false;
 	let formData = {
-		firstName: $account.firstname,
-		lastName: $account.lastname,
-		nickname: $account.nickname
+		firstName: $account.firstName,
+		lastName: $account.lastName,
+		username: $account.username
 	};
 	const handleSubmit = () => {};
 </script>
@@ -20,8 +20,8 @@
 	<input type="text" name="firstName" bind:value={formData.firstName} />
 	<label for="lastName">Nom</label>
 	<input type="text" name="lastName" bind:value={formData.lastName} />
-	<label for="nickname">Pseudo</label>
-	<input type="text" name="nickname" bind:value={formData.nickname} />
+	<label for="username">Pseudo</label>
+	<input type="text" name="username" bind:value={formData.username} />
 	<Button buttonType="submit" title="Modifier son compte" />
 </form>
 

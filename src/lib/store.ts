@@ -1,5 +1,6 @@
 import { browser } from '$app/environment';
 import { writable, type Writable } from 'svelte/store';
+import type { User } from './models/account';
 
 export enum Role {
 	User = 0,
@@ -7,36 +8,30 @@ export enum Role {
 	Administrator = 2,
 	SuperAdministrator = 3
 }
-type Account = {
-	id: number | null;
-	firstname: string;
-	lastname: string;
-	nickname: string;
-	role: Role;
-};
+export type StoreUser = Pick<User, 'id' | 'email' | 'firstName' | 'lastName' | 'username'>;
 const setAccount = () => {
 	const json = localStorage.getItem('account');
 	if (json) {
-		return JSON.parse(json) as Account;
+		return JSON.parse(json) as StoreUser;
 	}
 	return {
-		id: null,
-		firstname: '',
-		lastname: '',
-		nickname: '',
-		role: Role.User
+		id: 0,
+		firstName: '',
+		lastName: '',
+		username: '',
+		email: ''
 	};
 };
 
-export const account: Writable<Account> = writable(
+export const account: Writable<StoreUser> = writable(
 	browser
 		? setAccount()
 		: {
-				id: null,
-				firstname: '',
-				lastname: '',
-				nickname: '',
-				role: Role.User
+				id: 0,
+				firstName: '',
+				lastName: '',
+				username: '',
+				email: ''
 		  }
 );
 if (browser) {

@@ -6,9 +6,9 @@
 
 <div class="main">
 	<h1>Informations :</h1>
-	<p>Prénom : {$account.firstname}</p>
-	<p>Nom : {$account.lastname}</p>
-	<p>Pseudo : {$account.nickname}</p>
+	<p>Prénom : {$account.firstName}</p>
+	<p>Nom : {$account.lastName}</p>
+	<p>Pseudo : {$account.username}</p>
 	<h1>Actions :</h1>
 	<div class="wrapper">
 		<Button
