@@ -18,9 +18,9 @@
 	</p>
 	<br />
 	<p>
-		Vous trouverez ci-dessous 3 menu pour parcourir l'application et vous aurez aussi à la création
-		d'un compte pour pouvoir commenter des ressources, suivre votre progression et consulter votre
-		historique.
+		Vous trouverez ci-dessous 3 menu pour parcourir l'application et vous aurez aussi la possibilité
+		de crée un compte pour pouvoir commenter des ressources, suivre votre progression et consulter
+		votre historique.
 	</p>
 </section>
 
