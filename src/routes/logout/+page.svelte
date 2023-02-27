@@ -1,5 +1,17 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
+	import { user } from '$lib/store';
+	import { onMount } from 'svelte';
+	onMount(() => {
+		user.set({
+			id: 0,
+			firstName: '',
+			lastName: '',
+			username: '',
+			email: '',
+			token: ''
+		});
+	});
 </script>
 
 <div class="main">

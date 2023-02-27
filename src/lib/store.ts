@@ -8,9 +8,12 @@ export enum Role {
 	Administrator = 2,
 	SuperAdministrator = 3
 }
-export type StoreUser = Pick<User, 'id' | 'email' | 'firstName' | 'lastName' | 'username'>;
+export type PartialUser = Pick<User, 'id' | 'email' | 'firstName' | 'lastName' | 'username'>;
+interface StoreUser extends PartialUser {
+	token: string;
+}
 const setAccount = () => {
-	const json = localStorage.getItem('account');
+	const json = localStorage.getItem('user');
 	if (json) {
 		return JSON.parse(json) as StoreUser;
 	}
@@ -19,11 +22,12 @@ const setAccount = () => {
 		firstName: '',
 		lastName: '',
 		username: '',
-		email: ''
+		email: '',
+		token: ''
 	};
 };
 
-export const account: Writable<StoreUser> = writable(
+export const user: Writable<StoreUser> = writable(
 	browser
 		? setAccount()
 		: {
@@ -31,11 +35,12 @@ export const account: Writable<StoreUser> = writable(
 				firstName: '',
 				lastName: '',
 				username: '',
-				email: ''
+				email: '',
+				token: ''
 		  }
 );
 if (browser) {
-	account.subscribe((acc) => {
-		localStorage.setItem('account', JSON.stringify(acc));
+	user.subscribe((user) => {
+		localStorage.setItem('user', JSON.stringify(user));
 	});
 }

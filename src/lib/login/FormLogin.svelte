@@ -3,7 +3,7 @@
 	import Button from '$lib/Button.svelte';
 	import Loading from '$lib/Loading.svelte';
 	import { login } from '$lib/models/account';
-	import { account } from '$lib/store';
+	import { user } from '$lib/store';
 	import toast from '$lib/toast/store/toast';
 	let email = '';
 	let password = '';
@@ -26,12 +26,8 @@
 					type: 'confirmation',
 					timeout: 5000
 				});
-				account.set({
-					email: res.email,
-					firstName: res.firstName,
-					id: res.id,
-					lastName: res.lastName,
-					username: res.username
+				user.set({
+					...res
 				});
 				goto('/');
 			}

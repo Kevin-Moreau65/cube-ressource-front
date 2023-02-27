@@ -1,14 +1,14 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
-	import { account } from '$lib/store';
+	import { user } from '$lib/store';
 	import { page } from '$app/stores';
 </script>
 
 <div class="main">
 	<h1>Informations :</h1>
-	<p>Prénom : {$account.firstName}</p>
-	<p>Nom : {$account.lastName}</p>
-	<p>Pseudo : {$account.username}</p>
+	<p>Prénom : {$user.firstName}</p>
+	<p>Nom : {$user.lastName}</p>
+	<p>Pseudo : {$user.username}</p>
 	<h1>Actions :</h1>
 	<div class="wrapper">
 		<Button

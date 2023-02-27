@@ -1,7 +1,5 @@
-import { account } from '$lib/store';
-import { Role } from '$lib/store';
+import type { Role } from '$lib/store';
 import { fetchApi, type ResponseAPI } from '$lib/utils/fetch-api';
-import { get } from 'svelte/store';
 export interface ZoneGEO {
 	id: number;
 	code: number;
@@ -58,23 +56,4 @@ export const signUp = async (
 		username
 	});
 	return res;
-};
-
-export const getAccount = async (id: number) => {
-	const acc = get(account);
-	// if (acc.id !== id && acc.role === Role.User) {
-	// 	throw redirect(302, '/');
-	// }
-	// const res = await fetch(`https://api.com/account/${id}`);
-	// const data: { statusCode: string; message?: string; account: User } = await res.json();
-	const data = {
-		account: {
-			id: 1,
-			prenom: 'Kévin',
-			nom: 'Moreau',
-			pseudo: 'Kéké',
-			role: Role.User
-		}
-	};
-	return data;
 };

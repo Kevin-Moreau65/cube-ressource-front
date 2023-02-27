@@ -1,15 +1,17 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
 	import Loading from '$lib/Loading.svelte';
-	import { account } from '$lib/store';
+	import { user } from '$lib/store';
 
 	let isLoading = false;
 	let formData = {
-		firstName: $account.firstName,
-		lastName: $account.lastName,
-		username: $account.username
+		firstName: $user.firstName,
+		lastName: $user.lastName,
+		username: $user.username
 	};
-	const handleSubmit = () => {};
+	const handleSubmit = () => {
+		isLoading = true;
+	};
 </script>
 
 {#if isLoading}
