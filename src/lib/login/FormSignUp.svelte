@@ -11,7 +11,7 @@
 		email: '',
 		firstName: '',
 		lastName: '',
-		nickname: '',
+		username: '',
 		password: '',
 		confirmPassword: ''
 	};
@@ -26,25 +26,34 @@
 		isPasswordGood = checkPassword(formData.password);
 	}
 	const handleSubmit = async () => {
-		isLoading = true;
-		const res = await signUp(
-			formData.email,
-			formData.password,
-			formData.firstName,
-			formData.lastName,
-			formData.nickname
-		);
-		isLoading = false;
-		if (res.statusCode === 200) {
+		try {
+			isLoading = true;
+			const res = await signUp(
+				formData.email,
+				formData.password,
+				formData.firstName,
+				formData.lastName,
+				formData.username
+			);
+			isLoading = false;
+			if (res.statusCode === 200) {
+				toast.push({
+					message: 'Compte créé avec succès !',
+					type: 'confirmation',
+					timeout: 5000
+				});
+				toLogin = true;
+			} else {
+				toast.push({
+					message: res.message || 'Une erreur est survenue, veuillez réessayer',
+					type: 'error',
+					timeout: 5000
+				});
+			}
+		} catch (e: any) {
+			isLoading = false;
 			toast.push({
-				message: 'Compte créé avec succès !',
-				type: 'confirmation',
-				timeout: 5000
-			});
-			toLogin = true;
-		} else {
-			toast.push({
-				message: res.message || 'Une erreur est survenue, veuillez réessayer',
+				message: e.message || 'Une erreur est survenue, veuillez réessayer',
 				type: 'error',
 				timeout: 5000
 			});
@@ -62,8 +71,8 @@
 	<input type="text" name="firstName" bind:value={formData.firstName} />
 	<label for="lastName">Nom</label>
 	<input type="text" name="lastName" bind:value={formData.lastName} />
-	<label for="nickname">Pseudo</label>
-	<input type="text" name="nickname" bind:value={formData.nickname} />
+	<label for="username">Pseudo</label>
+	<input type="text" name="username" bind:value={formData.username} />
 	<label for="password">Mot de passe</label>
 	<input
 		type="password"
