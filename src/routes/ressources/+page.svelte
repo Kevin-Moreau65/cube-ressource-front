@@ -9,20 +9,25 @@
 		<a href="/filter">
 			<Button title="Filtrer" link="/" buttonType="button" style="height: auto;" />
 		</a>
+		<a href="/trier">
+			<Button title="Trier" link="/" buttonType="button" style="height: auto;" />
+		</a>
 	</div>
 	<div class="content">
-		<div class="bloc">
-			<div class="title-ressources">
-				<p>Titre Ressource n°1</p>
-				<p>26/05/2002</p>
+		<a href="/ressource">
+			<div class="bloc">
+				<div class="title-ressources">
+					<p>Titre Ressource n°1</p>
+					<p>26/05/2002</p>
+				</div>
+				<div class="description">
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec eleifend nisl, eu
+						feugiat elit. In hac habitasse.
+					</p>
+				</div>
 			</div>
-			<div class="description">
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec eleifend nisl, eu
-					feugiat elit. In hac habitasse.
-				</p>
-			</div>
-		</div>
+		</a>
 		<div class="bloc">
 			<div class="title-ressources">
 				<p>Titre Ressource n°1</p>
@@ -112,7 +117,7 @@
 	.top-button {
 		background: white;
 		width: 100%;
-		display: flex;
+		/*display: flex;*/
 		flex-direction: row;
 		justify-content: space-between;
 		height: auto;
@@ -124,7 +129,7 @@
 		background-color: var(--secondary-color);
 		border-radius: 5px;
 		min-width: 203px;
-		width: 50%;
+		width: 63%;
 		height: 100%;
 		color: white;
 	}
@@ -158,5 +163,15 @@
 	.pagination a:nth-child(1),
 	.pagination a:nth-last-child(1) {
 		background-color: var(--secondary-color);
+	}
+
+	.content a:hover {
+		background-color: var(--accent-color);
+	}
+
+	.content a {
+		cursor: pointer;
+		text-decoration: none;
+		padding: 8px 16px;
 	}
 </style>
