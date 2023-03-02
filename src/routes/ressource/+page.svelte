@@ -5,14 +5,8 @@
 
 <div class="main">
 	<div class="top-button">
-		<a href="/ressource">
-			<Button title="Ressource Précédente" link="/" buttonType="button" style="height: auto;" />
-		</a>
 		<a href="/ressources">
 			<Button title="Retour Menu" link="/" buttonType="button" style="height: auto;" />
-		</a>
-		<a href="/ressource">
-			<Button title="Ressource Suivante" link="/" buttonType="button" style="height: auto;" />
 		</a>
 	</div>
 	<div class="content">
