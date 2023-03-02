@@ -28,6 +28,8 @@
 			</div>
 			<div class="fichier">
 				<p>Fichier Joint :</p>
+				<img src="/paperclip.svg" alt="logo paperclip" />
+				<input type="file" id="ressource" name="ressource" accept="image/png, image/jpeg" />
 			</div>
 		</div>
 
@@ -120,5 +122,10 @@
 		flex-direction: row;
 		justify-content: space-between;
 		height: auto;
+	}
+
+	.fichier img {
+		width: 40px;
+		height: 40px;
 	}
 </style>
