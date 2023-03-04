@@ -28,6 +28,7 @@
 		height: 100%;
 		width: 100%;
 		flex-direction: column;
+		overflow: auto;
 	}
 	.switch {
 		color: var(--secondary-color);
