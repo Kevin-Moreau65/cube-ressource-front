@@ -1,21 +1,40 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 	import Button from '$lib/Button.svelte';
 	import Loading from '$lib/Loading.svelte';
 	import { login } from '$lib/models/account';
+	import { user } from '$lib/store';
 	import toast from '$lib/toast/store/toast';
 	let email = '';
 	let password = '';
 	let isLoading = false;
 	const handleSubmit = async () => {
-		isLoading = true;
-		const res = await login(email, password);
-		isLoading = false;
-		if (res.statusCode === 200) {
-			goto('/');
-		} else {
+		try {
+			isLoading = true;
+			const res = await login(email, password);
+			console.log(res);
+			isLoading = false;
+			if (res.statusCode !== 200) {
+				toast.push({
+					message: res.message || 'Une erreur est survenue, veuillez réessayer',
+					type: 'error',
+					timeout: 5000
+				});
+			} else {
+				toast.push({
+					message: `Bienvenue ${res.firstName} ${res.lastName} !`,
+					type: 'confirmation',
+					timeout: 5000
+				});
+				user.set({
+					...res
+				});
+				goto('/');
+			}
+		} catch (e: any) {
+			isLoading = false;
 			toast.push({
-				message: res.message || 'Une erreur est survenue, veuillez réessayer',
+				message: e.message || 'Une erreur est survenue, veuillez réessayer',
 				type: 'error',
 				timeout: 5000
 			});
