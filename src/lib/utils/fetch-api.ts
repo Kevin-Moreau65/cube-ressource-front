@@ -9,7 +9,6 @@ type Options = {
 export interface ResponseAPI {
 	statusCode: number;
 	error?: string;
-	message: string;
 }
 export type Fetch = (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>;
 export const fetchApi = async <T extends ResponseAPI>(

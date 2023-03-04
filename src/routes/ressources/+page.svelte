@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 </script>
 
 <div class="main">
@@ -13,52 +15,33 @@
 	</div>
 	<div class="content">
 		<a href="/ressource">
+			{#each data.ressources as ressource}
+				<div class="bloc">
+					<a href="/ressource">
+						<div class="title-ressources">
+							<p>{ressource.title}</p>
+							<p>
+								{new Date(ressource.creationDate).getDate()}/{new Date(
+									ressource.creationDate
+								).getMonth()}/{new Date(ressource.creationDate).getFullYear()}
+							</p>
+						</div>
+						<div class="description">
+							<p>
+								{#if ressource.description.length > 203}
+									{ressource.description.slice(0, 200)}...
+								{:else}
+									{ressource.description}
+								{/if}
+							</p>
+						</div>
+					</a>
+				</div>
+			{/each}
 			<div class="bloc">
 				<a href="/ressource">
 					<div class="title-ressources">
 						<p>Titre Ressource n°1</p>
-						<p>26/05/2002</p>
-					</div>
-					<div class="description">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec eleifend nisl, eu
-							feugiat elit. In hac habitasse.
-						</p>
-					</div>
-				</a>
-			</div>
-			<div class="bloc">
-				<a href="/ressource">
-					<div class="title-ressources">
-						<p>Titre Ressource n°2</p>
-						<p>26/05/2002</p>
-					</div>
-					<div class="description">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec eleifend nisl, eu
-							feugiat elit. In hac habitasse.
-						</p>
-					</div>
-				</a>
-			</div>
-			<div class="bloc">
-				<a href="/ressource">
-					<div class="title-ressources">
-						<p>Titre Ressource n°3</p>
-						<p>26/05/2002</p>
-					</div>
-					<div class="description">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec eleifend nisl, eu
-							feugiat elit. In hac habitasse.
-						</p>
-					</div>
-				</a>
-			</div>
-			<div class="bloc">
-				<a href="/ressource">
-					<div class="title-ressources">
-						<p>Titre Ressource n°4</p>
 						<p>26/05/2002</p>
 					</div>
 					<div class="description">

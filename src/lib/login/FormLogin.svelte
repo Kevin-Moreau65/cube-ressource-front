@@ -16,7 +16,7 @@
 			isLoading = false;
 			if (res.statusCode !== 200) {
 				toast.push({
-					message: res.message || 'Une erreur est survenue, veuillez réessayer',
+					message: 'Une erreur est survenue, veuillez réessayer',
 					type: 'error',
 					timeout: 5000
 				});
