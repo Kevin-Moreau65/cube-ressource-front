@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
+	import convertDate from '$lib/utils/convert-date';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -21,9 +22,7 @@
 						<div class="title-ressources">
 							<p>{ressource.title}</p>
 							<p>
-								{new Date(ressource.creationDate).getDate()}/{new Date(
-									ressource.creationDate
-								).getMonth()}/{new Date(ressource.creationDate).getFullYear()}
+								{convertDate(ressource.creationDate)}
 							</p>
 						</div>
 						<div class="description">

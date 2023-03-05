@@ -4,7 +4,7 @@ export interface Ressource {
 	id: number;
 	title: string;
 	description: string;
-	creationDate: Date;
+	creationDate: string;
 	path: string;
 	upVote: number;
 	downVote: number;
