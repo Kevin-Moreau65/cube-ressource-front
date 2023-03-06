@@ -26,7 +26,15 @@ export const fetchApi = async <T extends ResponseAPI>(
 	};
 	if (method !== 'GET') options.body = JSON.stringify(body);
 	const response = await fetch(PUBLIC_API_URL + url, options);
-	const json: T = await response.json();
-	json.statusCode = response.status;
-	return json;
+	try {
+		const json: T = await response.json();
+		json.statusCode = response.status;
+		return json;
+	} catch {
+		const json: ResponseAPI = {
+			statusCode: response.status,
+			error: response.statusText
+		};
+		return json as T;
+	}
 };

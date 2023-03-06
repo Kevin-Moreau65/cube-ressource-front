@@ -15,53 +15,37 @@
 		</a>
 	</div>
 	<div class="content">
-		<a href="/ressource">
-			{#each data.ressources as ressource}
+		{#each data.ressources as ressource}
+			<a href="/ressource">
 				<div class="bloc">
-					<a href="/ressource">
-						<div class="title-ressources">
-							<p>{ressource.title}</p>
-							<p>
-								{convertDate(ressource.creationDate)}
-							</p>
-						</div>
-						<div class="description">
-							<p>
-								{#if ressource.description.length > 203}
-									{ressource.description.slice(0, 200)}...
-								{:else}
-									{ressource.description}
-								{/if}
-							</p>
-						</div>
-					</a>
-				</div>
-			{/each}
-			<div class="bloc">
-				<a href="/ressource">
 					<div class="title-ressources">
-						<p>Titre Ressource n°1</p>
-						<p>26/05/2002</p>
+						<p>{ressource.title}</p>
+						<p>
+							{convertDate(ressource.creationDate)}
+						</p>
 					</div>
 					<div class="description">
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec eleifend nisl, eu
-							feugiat elit. In hac habitasse.
+							{#if ressource.description.length > 203}
+								{ressource.description.slice(0, 200)}...
+							{:else}
+								{ressource.description}
+							{/if}
 						</p>
 					</div>
-				</a>
-			</div>
-			<div class="pagination">
-				<a href="#">&laquo;</a>
-				<a href="#">1</a>
-				<a href="#">2</a>
-				<a href="#">3</a>
-				<a href="#">4</a>
-				<a href="#">5</a>
-				<a href="#">6</a>
-				<a href="#">&raquo;</a>
-			</div>
-		</a>
+				</div>
+			</a>
+		{/each}
+		<div class="pagination">
+			<a href="#">&laquo;</a>
+			<a href="#">1</a>
+			<a href="#">2</a>
+			<a href="#">3</a>
+			<a href="#">4</a>
+			<a href="#">5</a>
+			<a href="#">6</a>
+			<a href="#">&raquo;</a>
+		</div>
 	</div>
 </div>
 
@@ -74,6 +58,11 @@
 		gap: 15px;
 		padding: 5px 10px 0px 10px;
 	}
+	.content a {
+		cursor: pointer;
+		text-decoration: none;
+		margin: 10px;
+	}
 
 	.bloc {
 		background: white;
@@ -82,7 +71,7 @@
 		border-radius: 1px;
 		padding: 1rem;
 		width: 100%;
-		height: auto;
+		height: 100%;
 	}
 
 	.title-ressources {
@@ -91,9 +80,11 @@
 		justify-content: space-between;
 		width: 100%;
 	}
-
-	.description {
+	.title-ressources p:nth-child(1) {
+		font-weight: bolder;
+		font-size: large;
 	}
+
 	.content {
 		display: flex;
 		flex-direction: column;
@@ -102,10 +93,13 @@
 		height: 100%;
 		overflow: auto;
 	}
+	.description {
+		color: rgb(75, 75, 75);
+		font-weight: lighter;
+	}
 	.top-button {
 		background: white;
 		width: 100%;
-		/*display: flex;*/
 		flex-direction: row;
 		justify-content: space-between;
 		height: auto;
@@ -133,6 +127,7 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
+		flex-wrap: wrap;
 		gap: 7px;
 		width: 100%;
 		padding-bottom: 10px;
@@ -159,11 +154,5 @@
 
 	.bloc {
 		margin-bottom: 15px;
-	}
-
-	.content a {
-		cursor: pointer;
-		text-decoration: none;
-		padding: 8px 16px;
 	}
 </style>

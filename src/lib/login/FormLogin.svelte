@@ -12,7 +12,6 @@
 		try {
 			isLoading = true;
 			const res = await login(email, password);
-			console.log(res);
 			isLoading = false;
 			if (res.statusCode !== 200) {
 				toast.push({

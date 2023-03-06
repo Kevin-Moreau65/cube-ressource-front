@@ -22,7 +22,11 @@
 		</div>
 	</a>
 	<a href="/ressources">
-		<div class="button" aria-current={$page.url.pathname === '/ressources' ? 'page' : undefined}>
+		<div
+			class="button"
+			aria-current={$page.url.pathname === '/ressources' ? 'page' : undefined}
+			data-sveltekit-preload-data
+		>
 			<svg class="svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
 				><path
 					d="M848 232v672H288V232h560m0-56H288c-30.9 0-56 25.1-56 56v672c0 30.9 25.1 56 56 56h560c30.9 0 56-25.1 56-56V232c0-30.9-25.1-56-56-56z"

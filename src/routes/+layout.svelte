@@ -1,12 +1,17 @@
 <script>
+	import { navigating } from '$app/stores';
 	import Footer from '$lib/Footer.svelte';
 	import Header from '$lib/Header.svelte';
+	import Loading from '$lib/Loading.svelte';
 	import Toast from '$lib/toast/toast.svelte';
 	import './styles.css';
 </script>
 
 <Toast />
 <div class="app">
+	{#if $navigating}
+		<Loading />
+	{/if}
 	<Header />
 
 	<main>

@@ -1,17 +1,19 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
+	import { user } from '$lib/store';
 </script>
 
 <div class="main">
 	<div class="top-button">
 		<a href="/ressources">
-			<Button title="Retour Menu" link="/" buttonType="button" style="height: auto;" />
+			<Button title="Retour Menu" link="/" buttonType="button" style="height: 1.3rem;" />
 		</a>
 	</div>
 	<div class="content">
+		<h1 class="title">Titre Ressource</h1>
 		<div class="bloc">
-			<div class="title-ressources">
-				<p>Titre Ressource</p>
+			<div class="user-date">
+				<p>User</p>
 				<p>26/05/2002</p>
 			</div>
 			<div class="description">
@@ -33,6 +35,14 @@
 		</div>
 
 		<h1>Commentaires</h1>
+		<div class="comment">
+			{#if $user.id !== 0}
+				<textarea placeholder="Ajouter un commentaire..." />
+				<Button title="Commenter" />
+			{:else}
+				<textarea placeholder="Veuillez vous connecter pour commenter !" disabled />
+			{/if}
+		</div>
 		<div class="bloc">
 			<div class="title-commentaire">
 				<p>Auteur</p>
@@ -69,10 +79,16 @@
 		gap: 15px;
 		padding: 5px 10px 0px 10px;
 	}
+	.top-button {
+		position: fixed;
+	}
 
 	h1 {
-		font-size: 25px;
+		font-size: 1.7em;
 		text-align: center;
+	}
+	.title {
+		margin-top: 2.5rem;
 	}
 
 	.bloc {
@@ -84,8 +100,17 @@
 		width: 100%;
 		height: auto;
 	}
-
-	.title-ressources {
+	.comment {
+		display: flex;
+		gap: 10px;
+	}
+	.comment textarea {
+		width: 100%;
+		background-color: var(--secondary-color);
+		border-radius: 5px;
+		color: white;
+	}
+	.user-date {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -112,15 +137,6 @@
 		/* Chrome, Firefox, Opera, Safari 10.1+ */
 		color: var(--accent-color);
 		opacity: 1; /* Firefox */
-	}
-
-	.top-button {
-		background: white;
-		width: 100%;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		height: auto;
 	}
 
 	.fichier img {
