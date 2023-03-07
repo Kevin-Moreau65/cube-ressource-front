@@ -14,12 +14,17 @@ export interface Ressource {
 
 interface RessourcesResponse extends ResponseAPI {
 	data: Ressource[];
-	example: {
-		foo: string;
-	};
+}
+interface RessourceResponse extends ResponseAPI {
+	data: Ressource;
 }
 
 export const getRessources = async () => {
 	const res = await fetchApi<RessourcesResponse>('/api/resources', 'GET', fetch);
+	return res;
+};
+
+export const getRessource = async (id: number) => {
+	const res = await fetchApi<RessourceResponse>(`/api/resources/${id}`, 'GET', fetch);
 	return res;
 };

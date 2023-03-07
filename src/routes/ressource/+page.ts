@@ -1,12 +1,9 @@
-import { getRessources } from '$lib/models/ressources';
+import { getRessource } from '$lib/models/ressources';
 import type { PageLoad } from './$types';
 
 export const load = (async ({ params }) => {
-	const result = await getRessources();
+	const result = await getRessource(1);
 	return {
-		ressources: [...result.data],
-		example: {
-			foo: 'bar'
-		}
+		ressource: [...result.data]
 	};
 }) satisfies PageLoad;

@@ -4,9 +4,6 @@ import type { PageLoad } from './$types';
 export const load = (async ({ params }) => {
 	const result = await getRessources();
 	return {
-		ressources: [...result.data],
-		example: {
-			foo: 'bar'
-		}
+		ressources: [...result.data]
 	};
 }) satisfies PageLoad;

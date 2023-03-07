@@ -1,6 +1,10 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
 	import { user } from '$lib/store';
+	import convertDate from '$lib/utils/convert-date';
+	import type { PageData } from './$types';
+
+	export let result: PageData;
 </script>
 
 <div class="main">
@@ -10,30 +14,22 @@
 		</a>
 	</div>
 	<div class="content">
-		<h1 class="title">Titre Ressource</h1>
+		<h1 class="title">{ressource.title}</h1>
 		<div class="bloc">
 			<div class="user-date">
-				<p>User</p>
-				<p>26/05/2002</p>
+				<p>{ressource.userId}</p>
+				<p>{convertDate(ressource.creationDate)}</p>
 			</div>
 			<div class="description">
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec eleifend nisl, eu
-					feugiat elit. In hac habitasse. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-					Cras nec eleifend nisl, eu feugiat elit. In hac habitasse. Lorem ipsum dolor sit amet,
-					consectetur adipiscing elit. Cras nec eleifend nisl, eu feugiat elit. In hac habitasse.
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec eleifend nisl, eu
-					feugiat elit. In hac habitasse. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-					Cras nec eleifend nisl, eu feugiat elit. In hac habitasse.
+					{ressource.description}
 				</p>
 			</div>
 			<div class="fichier">
 				<p>Fichier Joint :</p>
 				<img src="/paperclip.svg" alt="logo paperclip" />
-				<input type="file" id="ressource" name="ressource" accept="image/png, image/jpeg" />
 			</div>
 		</div>
-
 		<h1>Commentaires</h1>
 		<div class="comment">
 			{#if $user.id !== 0}
