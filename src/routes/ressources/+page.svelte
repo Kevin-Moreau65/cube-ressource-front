@@ -16,7 +16,7 @@
 	</div>
 	<div class="content">
 		{#each data.ressources as ressource}
-			<a href="/ressource">
+			<a href={`/ressources/${ressource.id}`}>
 				<div class="bloc">
 					<div class="title-ressources">
 						<p>{ressource.title}</p>

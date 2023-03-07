@@ -1,4 +1,4 @@
-import { fetchApi, type ResponseAPI } from '$lib/utils/fetch-api';
+import { fetchApi, type Fetch, type ResponseAPI } from '$lib/utils/fetch-api';
 
 export interface Ressource {
 	id: number;
@@ -19,12 +19,12 @@ interface RessourceResponse extends ResponseAPI {
 	data: Ressource;
 }
 
-export const getRessources = async () => {
+export const getRessources = async (fetch: Fetch) => {
 	const res = await fetchApi<RessourcesResponse>('/api/resources', 'GET', fetch);
 	return res;
 };
 
-export const getRessource = async (id: number) => {
+export const getRessource = async (id: string, fetch: Fetch) => {
 	const res = await fetchApi<RessourceResponse>(`/api/resources/${id}`, 'GET', fetch);
 	return res;
 };
