@@ -3,7 +3,7 @@
 	import { user } from '$lib/store';
 </script>
 
-<div class="main">
+<footer class="main">
 	<a href="/">
 		<div class="button" aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
 			<svg
@@ -45,7 +45,7 @@
 			<p>{$user.id === 0 ? 'Se connecter' : `${$user.firstName} ${$user.lastName}`}</p>
 		</div>
 	</a>
-</div>
+</footer>
 
 <style>
 	a {
@@ -61,6 +61,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-evenly;
+		color: #d0d0d0;
 	}
 
 	.button {
@@ -71,16 +72,16 @@
 		align-items: center;
 		flex-direction: column;
 	}
-
 	.button svg {
 		width: 27px;
 		aspect-ratio: 1/1;
 		margin-bottom: 10px;
+		fill: #d0d0d0;
 	}
 	.button[aria-current='page'] svg {
-		fill: white;
+		fill: rgb(255, 255, 255);
 	}
 	.button[aria-current='page'] p {
-		color: white;
+		color: rgb(255, 255, 255);
 	}
 </style>

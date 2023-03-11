@@ -1,10 +1,10 @@
-<div class="main">
+<header class="main">
 	<img src="/Re.svg" alt="" srcset="" />
 
 	<div class="search">
 		<input type="text" placeholder="Rechercher une ressource" />
 	</div>
-</div>
+</header>
 
 <style>
 	.main {
@@ -26,11 +26,11 @@
 	input {
 		all: unset;
 		border: solid 1px var(--accent-color);
-		background-color: var(--secondary-color);
+		background-color: white;
 		border-radius: 5px;
 		width: 85%;
 		height: 37px;
-		color: white;
+		color: rgb(0, 0, 0);
 	}
 	::placeholder {
 		/* Chrome, Firefox, Opera, Safari 10.1+ */

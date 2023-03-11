@@ -4,6 +4,7 @@
 </svelte:head>
 
 <section>
+	<h1>Accueil</h1>
 	<div class="logo">
 		<img src="/Ressources_logo.svg" alt="Logo Ressources" />
 	</div>
