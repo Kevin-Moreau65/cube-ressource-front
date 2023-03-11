@@ -31,11 +31,11 @@
 	input {
 		all: unset;
 		border: solid 1px var(--accent-color);
-		background-color: var(--secondary-color);
+		background-color: white;
 		border-radius: 5px;
 		width: 85%;
 		height: 37px;
-		color: white;
+		color: rgb(0, 0, 0);
 	}
 	::placeholder {
 		/* Chrome, Firefox, Opera, Safari 10.1+ */
