@@ -2,14 +2,14 @@
 	import { page } from '$app/stores';
 </script>
 
-<div class="main">
+<header class="main">
 	<img src="/Re.svg" alt="" srcset="" />
 	{#if $page.url.pathname !== '/ressources'}
 		<div class="search">
 			<input type="text" placeholder="Rechercher une ressource" />
 		</div>
 	{/if}
-</div>
+</header>
 
 <style>
 	.main {

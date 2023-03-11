@@ -75,6 +75,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
+		cursor: pointer;
 	}
 	.button svg {
 		width: 27px;

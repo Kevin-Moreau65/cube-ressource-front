@@ -15,7 +15,8 @@
 			<Button title="Retour Menu" link="/" buttonType="button" style="height: 1.3rem;" />
 		</a>
 	</div>
-	<div class="content">
+	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+	<div class="content" tabindex="0">
 		<h1 class="title">{ressource.title}</h1>
 		<div class="bloc">
 			<div class="user-date">
@@ -38,7 +39,11 @@
 				<textarea placeholder="Ajouter un commentaire..." />
 				<Button title="Commenter" />
 			{:else}
-				<textarea placeholder="Veuillez vous connecter pour commenter !" disabled />
+				<textarea
+					placeholder="Veuillez vous connecter pour commenter !"
+					disabled
+					aria-hidden="true"
+				/>
 			{/if}
 		</div>
 		<div class="bloc">
@@ -104,9 +109,9 @@
 	}
 	.comment textarea {
 		width: 100%;
-		background-color: var(--secondary-color);
+		background-color: rgb(233, 233, 233);
 		border-radius: 5px;
-		color: white;
+		color: rgb(0, 0, 0);
 	}
 	.user-date {
 		display: flex;
