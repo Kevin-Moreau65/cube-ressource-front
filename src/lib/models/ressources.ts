@@ -13,6 +13,13 @@ export interface Ressource {
 	userId: number;
 }
 
+export enum TriType {
+	DateDesc,
+	DateAsc,
+	Alphabetique,
+	Popularite
+}
+
 interface RessourcesResponse extends ResponseAPI, Pagination {
 	data: Ressource[];
 }
