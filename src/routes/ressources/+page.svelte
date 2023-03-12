@@ -10,10 +10,7 @@
 	<h1>Ressources</h1>
 	<div class="top-button">
 		<input type="text" placeholder="Rechercher une ressource" />
-		<Button title="Filtrer" link="/" buttonType="button" style="height: auto;" />
-		<a href="/trier">
-			<Button title="Trier" link="/" buttonType="button" style="height: auto;" />
-		</a>
+		<Button title="Filtrer / Trier" link="/" buttonType="button" style="height: auto;" />
 	</div>
 	<div class="content">
 		{#each data.ressources as ressource}
