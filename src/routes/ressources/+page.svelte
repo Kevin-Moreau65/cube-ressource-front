@@ -13,7 +13,7 @@
 		<Button title="Filtrer / Trier" link="/" buttonType="button" style="height: auto;" />
 	</div>
 	<div class="content">
-		{#each data.ressources as ressource}
+		{#each data.result.data as ressource}
 			<a href={`/ressources/${ressource.id}`}>
 				<div class="bloc">
 					<div class="title-ressources">
@@ -36,12 +36,9 @@
 		{/each}
 		<div class="pagination">
 			<a href="#">&laquo;</a>
-			<a href="#">1</a>
-			<a href="#">2</a>
-			<a href="#">3</a>
-			<a href="#">4</a>
-			<a href="#">5</a>
-			<a href="#">6</a>
+			{#each Array(data.result.totalPages) as ressource, i}
+				<a href={`/ressources?PageNumber=${i + 1}`}>{i + 1}</a>
+			{/each}
 			<a href="#">&raquo;</a>
 		</div>
 	</div>

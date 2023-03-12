@@ -1,4 +1,5 @@
 import { fetchApi, type Fetch, type ResponseAPI } from '$lib/utils/fetch-api';
+import type { Pagination } from './pagination';
 
 export interface Ressource {
 	id: number;
@@ -12,15 +13,24 @@ export interface Ressource {
 	userId: number;
 }
 
-interface RessourcesResponse extends ResponseAPI {
+interface RessourcesResponse extends ResponseAPI, Pagination {
 	data: Ressource[];
 }
 interface RessourceResponse extends ResponseAPI {
 	data: Ressource;
 }
 
-export const getRessources = async (fetch: Fetch) => {
-	const res = await fetchApi<RessourcesResponse>('/api/resources', 'GET', fetch);
+export const getRessources = async (
+	{ pageNumber, pageSize }: { pageNumber?: string; pageSize?: string },
+	fetch: Fetch
+) => {
+	const res = await fetchApi<RessourcesResponse>(
+		`/api/resources?${pageNumber ? `PageNumber=${pageNumber}&` : ''}${
+			pageSize ? `PageSize=${pageSize}&` : ''
+		}`,
+		'GET',
+		fetch
+	);
 	return res;
 };
 
