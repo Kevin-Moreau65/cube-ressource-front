@@ -1,12 +1,20 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
+	import { getCommentsByResource } from '$lib/models/comment';
 	import { user } from '$lib/store';
 	import convertDate from '$lib/utils/convert-date';
+	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
+	import type { Comment } from '$lib/models/comment';
 
 	export let data: PageData;
 	const { ressource } = data;
-	console.log(ressource);
+	let comments: Comment[];
+	onMount(async () => {
+		const data = await getCommentsByResource($page.route.id as string, fetch);
+		comments = data.comments;
+	});
 </script>
 
 <div class="main">
@@ -46,30 +54,26 @@
 				/>
 			{/if}
 		</div>
-		<div class="bloc">
-			<div class="title-commentaire">
-				<p>Auteur</p>
-				<p>26/05/2002</p>
-			</div>
-			<div class="description-commentaire">
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec eleifend nisl, eu
-					feugiat elit. In hac habitasse.
-				</p>
-			</div>
-		</div>
-		<div class="bloc">
-			<div class="title-commentaire">
-				<p>Auteur</p>
-				<p>26/05/2002</p>
-			</div>
-			<div class="description-commentaire">
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec eleifend nisl, eu
-					feugiat elit. In hac habitasse.
-				</p>
-			</div>
-		</div>
+		{#if comments}
+			{#if comments.length > 0}
+				{#each comments as comment}
+					<div class="bloc">
+						<div class="title-commentaire">
+							<p>{comment.userId}</p>
+							<p>{convertDate(comment.datePost)}</p>
+						</div>
+						<div class="description-commentaire">
+							<p>
+								{comment.content}
+							</p>
+						</div>
+					</div>
+				{/each}
+			{:else}
+				<p>Pas de commentaires !</p>
+			{/if}
+			<p>Chargement...</p>
+		{/if}
 	</div>
 </div>
 
