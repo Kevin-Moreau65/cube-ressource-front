@@ -1,14 +1,66 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
 	import { TriType } from '$lib/models/ressources';
 	import convertDate from '$lib/utils/convert-date';
 	import type { PageData } from './$types';
-
 	export let data: PageData;
 	let isOpen = false;
 	let pageSize: string;
+	let nextLink: string;
+	let previousLink: string;
+	let arrayNumberLinks: string[];
+	let search: string;
 	let tri: string;
+	const nextPage = () => {
+		const nextPage = parseInt($page.url.searchParams.get('PageNumber') || '1') + 1;
+		const url = new URL($page.url);
+		if (nextPage <= data.result.totalPages) {
+			url.searchParams.set('PageNumber', nextPage.toString());
+		}
+		return url.href;
+	};
+	const previousPage = () => {
+		const previousPage = parseInt($page.url.searchParams.get('PageNumber') || '1') - 1;
+		const url = new URL($page.url);
+		if (previousPage >= 1) {
+			url.searchParams.set('PageNumber', previousPage.toString());
+		}
+		return url.href;
+	};
+	const handleSearch = () => {
+		const url = new URL($page.url);
+		url.searchParams.set('PageNumber', '1');
+		url.searchParams.set('search', search);
+		goto(url);
+	};
+	const filter = () => {
+		const url = new URL($page.url);
+		url.searchParams.set('PageNumber', '1');
+		url.searchParams.set('PageSize', pageSize || '10');
+		url.searchParams.set('triType', tri);
+		goto(url);
+	};
+	const getNumberPage = (number: number) => {
+		const url = new URL($page.url);
+		console.log(number);
+		url.searchParams.set('PageNumber', number.toString());
+		return url.href;
+	};
+	$: {
+		$page;
+		nextLink = nextPage();
+		previousLink = previousPage();
+	}
+	$: {
+		data.result;
+		arrayNumberLinks = [];
+		Array(data.result.totalPages).forEach((x, i) => {
+			console.log('yo');
+			arrayNumberLinks.push(getNumberPage(i + 1));
+		});
+	}
 </script>
 
 <div class="main">
@@ -48,14 +100,23 @@
 					style="height: auto;"
 					action={() => {
 						isOpen = false;
-						goto(`/ressources?PageSize=${pageSize}&triType=${tri}`);
+						filter();
 					}}
 				/>
 			</div>
 		</div>
 	</div>
 	<div class="top-button">
-		<input type="text" placeholder="Rechercher une ressource" />
+		<input
+			type="text"
+			placeholder="Rechercher une ressource"
+			bind:value={search}
+			on:keypress={(e) => {
+				if (e.key === 'Enter') {
+					handleSearch();
+				}
+			}}
+		/>
 		<Button
 			title="Filtrer / Trier"
 			link="/"
@@ -87,11 +148,15 @@
 			</a>
 		{/each}
 		<div class="pagination">
-			<a href="#">&laquo;</a>
+			<a href={previousLink} class:disabled={data.result.previousPage === null}>&laquo;</a>
 			{#each Array(data.result.totalPages) as ressource, i}
-				<a href={`/ressources?PageNumber=${i + 1}`}>{i + 1}</a>
+				<a
+					href={arrayNumberLinks[i]}
+					class:selected={($page.url.searchParams.get('PageNumber') || '1') === (i + 1).toString()}
+					>{i + 1}</a
+				>
 			{/each}
-			<a href="#">&raquo;</a>
+			<a href={nextLink} class:disabled={data.result.nextPage === null}>&raquo;</a>
 		</div>
 	</div>
 </div>
@@ -158,9 +223,10 @@
 		background-color: white;
 		border-radius: 5px;
 		min-width: 203px;
+		padding: 5px 10px;
 		width: 63%;
 		height: 100%;
-		color: white;
+		color: black;
 	}
 	::placeholder {
 		/* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -221,6 +287,12 @@
 	.open {
 		opacity: 1;
 		visibility: visible;
+	}
+	.disabled {
+		background-color: gray !important;
+	}
+	.selected {
+		border: solid 3px var(--primary-color) !important;
 	}
 
 	.filter-content {

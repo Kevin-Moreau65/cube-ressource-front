@@ -6,10 +6,6 @@
 	--accent-color: #9F73B2;
 }
 
-* :focus {
-	border: solid 2px orange !important;
-}
-
 html {
 	height: 100%;
 	overflow: hidden;
