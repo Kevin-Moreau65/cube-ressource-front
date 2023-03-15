@@ -1,12 +1,14 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
 	import { user } from '$lib/store';
 	import convertDate from '$lib/utils/convert-date';
+	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
+	import type { Comment } from '$lib/models/comment';
 
 	export let data: PageData;
 	const { ressource } = data;
-	console.log(ressource);
 </script>
 
 <div class="main">
@@ -46,30 +48,23 @@
 				/>
 			{/if}
 		</div>
-		<div class="bloc">
-			<div class="title-commentaire">
-				<p>Auteur</p>
-				<p>26/05/2002</p>
-			</div>
-			<div class="description-commentaire">
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec eleifend nisl, eu
-					feugiat elit. In hac habitasse.
-				</p>
-			</div>
-		</div>
-		<div class="bloc">
-			<div class="title-commentaire">
-				<p>Auteur</p>
-				<p>26/05/2002</p>
-			</div>
-			<div class="description-commentaire">
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec eleifend nisl, eu
-					feugiat elit. In hac habitasse.
-				</p>
-			</div>
-		</div>
+		{#if data.ressource.comments.length > 0}
+			{#each data.ressource.comments as comment}
+				<div class="bloc">
+					<div class="title-commentaire">
+						<p>{comment.user.username}</p>
+						<p>{convertDate(comment.datePost)}</p>
+					</div>
+					<div class="description-commentaire">
+						<p>
+							{comment.content}
+						</p>
+					</div>
+				</div>
+			{/each}
+		{:else}
+			<p>Pas de commentaires !</p>
+		{/if}
 	</div>
 </div>
 

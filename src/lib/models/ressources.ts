@@ -1,5 +1,6 @@
 import { fetchApi, type Fetch, type ResponseAPI } from '$lib/utils/fetch-api';
 import type { Pagination } from './pagination';
+import type { Comment } from './comment';
 
 export interface Ressource {
 	id: number;
@@ -11,6 +12,7 @@ export interface Ressource {
 	downVote: number;
 	type: number;
 	userId: number;
+	comments: Comment[];
 }
 
 export enum TriType {
