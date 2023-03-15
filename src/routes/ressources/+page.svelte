@@ -45,7 +45,6 @@
 	};
 	const getNumberPage = (number: number) => {
 		const url = new URL($page.url);
-		console.log(number);
 		url.searchParams.set('PageNumber', number.toString());
 		return url.href;
 	};
