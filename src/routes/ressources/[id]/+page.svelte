@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
-	import { getCommentsByResource } from '$lib/models/comment';
 	import { user } from '$lib/store';
 	import convertDate from '$lib/utils/convert-date';
 	import { onMount } from 'svelte';
@@ -10,11 +9,6 @@
 
 	export let data: PageData;
 	const { ressource } = data;
-	let comments: Comment[];
-	onMount(async () => {
-		const data = await getCommentsByResource($page.route.id as string, fetch);
-		comments = data.comments;
-	});
 </script>
 
 <div class="main">
@@ -54,25 +48,22 @@
 				/>
 			{/if}
 		</div>
-		{#if comments}
-			{#if comments.length > 0}
-				{#each comments as comment}
-					<div class="bloc">
-						<div class="title-commentaire">
-							<p>{comment.userId}</p>
-							<p>{convertDate(comment.datePost)}</p>
-						</div>
-						<div class="description-commentaire">
-							<p>
-								{comment.content}
-							</p>
-						</div>
+		{#if data.ressource.comments.length > 0}
+			{#each data.ressource.comments as comment}
+				<div class="bloc">
+					<div class="title-commentaire">
+						<p>{comment.user.username}</p>
+						<p>{convertDate(comment.datePost)}</p>
 					</div>
-				{/each}
-			{:else}
-				<p>Pas de commentaires !</p>
-			{/if}
-			<p>Chargement...</p>
+					<div class="description-commentaire">
+						<p>
+							{comment.content}
+						</p>
+					</div>
+				</div>
+			{/each}
+		{:else}
+			<p>Pas de commentaires !</p>
 		{/if}
 	</div>
 </div>

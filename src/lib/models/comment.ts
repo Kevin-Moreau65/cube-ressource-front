@@ -1,4 +1,5 @@
 import { fetchApi, type Fetch, type ResponseAPI } from '$lib/utils/fetch-api';
+import type { User } from './account';
 
 // {
 //     "id": 0,
@@ -16,16 +17,5 @@ export interface Comment {
 	isDeleted: boolean;
 	ressourceId: number;
 	userId: number;
+	user: User;
 }
-
-interface CommentResponse extends ResponseAPI {
-	comments: Comment[];
-}
-export const getCommentsByResource = async (id: string, fetch: Fetch) => {
-	const res = await fetchApi<CommentResponse>(
-		`/api/Comments/getallcommentsbyidressource/${id}`,
-		'GET',
-		fetch
-	);
-	return res;
-};

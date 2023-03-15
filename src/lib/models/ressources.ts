@@ -10,6 +10,7 @@ export interface Ressource {
 	downVote: number;
 	type: number;
 	userId: number;
+	comments: Comment[];
 }
 
 interface RessourcesResponse extends ResponseAPI {
