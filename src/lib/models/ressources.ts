@@ -1,4 +1,5 @@
 import { fetchApi, type Fetch, type ResponseAPI } from '$lib/utils/fetch-api';
+import type { Comment } from './comment';
 
 export interface Ressource {
 	id: number;
