@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
@@ -49,17 +50,19 @@
 		return url.href;
 	};
 	$: {
+		//Lorsque les données de la page change les lien de paginations sont automatiquement actualisé
 		$page;
 		nextLink = nextPage();
 		previousLink = previousPage();
-	}
-	$: {
-		data.result;
 		arrayNumberLinks = [];
-		Array(data.result.totalPages).forEach((x, i) => {
-			console.log('yo');
+		for (let i = 0; i < data.result.totalPages; i++) {
 			arrayNumberLinks.push(getNumberPage(i + 1));
-		});
+		}
+		if (browser) {
+			document.querySelector('.content')?.scrollTo({
+				top: 0
+			});
+		}
 	}
 </script>
 
@@ -149,7 +152,7 @@
 		{/each}
 		<div class="pagination">
 			<a href={previousLink} class:disabled={data.result.previousPage === null}>&laquo;</a>
-			{#each Array(data.result.totalPages) as ressource, i}
+			{#each Array(data.result.totalPages).fill(Date.now) as ressource, i}
 				<a
 					href={arrayNumberLinks[i]}
 					class:selected={($page.url.searchParams.get('PageNumber') || '1') === (i + 1).toString()}
