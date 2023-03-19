@@ -27,7 +27,7 @@
 		<h1 class="title">{ressource.title}</h1>
 		<div class="bloc">
 			<div class="user-date">
-				<p>Nom user</p>
+				<p>{ressource.user.username}</p>
 				<p>{convertDate(ressource.creationDate)}</p>
 			</div>
 			<div class="description">

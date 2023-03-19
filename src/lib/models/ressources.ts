@@ -1,6 +1,7 @@
 import { fetchApi, type Fetch, type ResponseAPI } from '$lib/utils/fetch-api';
 import type { Pagination } from './pagination';
 import type { Comment } from './comment';
+import type { User } from './account';
 
 export interface Ressource {
 	id: number;
@@ -13,6 +14,7 @@ export interface Ressource {
 	type: number;
 	userId: number;
 	comments: Comment[];
+	user: User;
 }
 
 export enum TriType {
@@ -30,13 +32,13 @@ interface RessourceResponse extends ResponseAPI {
 }
 
 export const getRessources = async (
-	{ pageNumber, pageSize }: { pageNumber?: string; pageSize?: string },
+	{ pageNumber, pageSize, triType }: { pageNumber?: string; pageSize?: string; triType?: string },
 	fetch: Fetch
 ) => {
 	const res = await fetchApi<RessourcesResponse>(
 		`/api/resources?${pageNumber ? `PageNumber=${pageNumber}&` : ''}${
 			pageSize ? `PageSize=${pageSize}&` : ''
-		}`,
+		}${triType ? `triType=${triType}` : ''}`,
 		'GET',
 		fetch
 	);
