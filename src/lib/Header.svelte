@@ -1,14 +1,9 @@
 <script>
-	import { page } from '$app/stores';
+	import { storeTitle } from './store';
 </script>
 
 <header class="main">
-	<img src="/Re.svg" alt="" srcset="" />
-	{#if $page.url.pathname !== '/ressources'}
-		<div class="search">
-			<input type="text" placeholder="Rechercher une ressource" />
-		</div>
-	{/if}
+	<h1>{$storeTitle}</h1>
 </header>
 
 <style>
@@ -16,37 +11,11 @@
 		background-color: var(--primary-color);
 		height: 100%;
 		width: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: start;
 	}
-
-	.search {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	input {
-		all: unset;
-		border: solid 1px var(--accent-color);
-		background-color: white;
-		border-radius: 5px;
-		width: 85%;
-		height: 37px;
-		color: rgb(0, 0, 0);
-	}
-	::placeholder {
-		/* Chrome, Firefox, Opera, Safari 10.1+ */
-		color: var(--accent-color);
-		opacity: 1; /* Firefox */
-	}
-
-	img {
-		height: 75px;
-		width: 75px;
-		position: relative;
-		left: 0;
+	h1 {
+		font-size: 2.2em;
+		color: white;
+		text-align: center;
+		margin: 0;
 	}
 </style>

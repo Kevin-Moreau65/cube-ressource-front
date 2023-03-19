@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
 	import { TriType } from '$lib/models/ressources';
+	import { storeTitle } from '$lib/store';
 	import convertDate from '$lib/utils/convert-date';
 	import type { PageData } from './$types';
 	export let data: PageData;
@@ -14,6 +15,9 @@
 	let arrayNumberLinks: string[];
 	let search: string;
 	let tri: string;
+	let y: number;
+	let scroll: any;
+	storeTitle.set('Ressources');
 	const nextPage = () => {
 		const nextPage = parseInt($page.url.searchParams.get('PageNumber') || '1') + 1;
 		const url = new URL($page.url);
@@ -66,7 +70,6 @@
 </script>
 
 <div class="main">
-	<h1>Ressources</h1>
 	<div class="popup-filter" class:open={isOpen}>
 		<div class="filter-content">
 			<h2>Filter / Trier</h2>
@@ -108,7 +111,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="top-button">
+	<div class="top-button" class:closed={y > 80}>
 		<input
 			type="text"
 			placeholder="Rechercher une ressource"
@@ -127,7 +130,7 @@
 			action={() => (isOpen = !isOpen)}
 		/>
 	</div>
-	<div class="content">
+	<div class="content" bind:this={scroll} on:scroll={(e) => (y = scroll.scrollTop)}>
 		{#each data.result.data as ressource}
 			<a href={`/ressources/${ressource.id}`}>
 				<div class="bloc">
@@ -170,7 +173,7 @@
 		width: 100%;
 		min-height: 100%;
 		gap: 15px;
-		padding: 5px 10px 0px 10px;
+		padding: 0px 10px 0px 10px;
 	}
 	.content a {
 		cursor: pointer;
@@ -214,9 +217,11 @@
 	.top-button {
 		background: white;
 		width: 100%;
-		flex-direction: row;
-		justify-content: space-between;
-		height: auto;
+		height: 53px;
+		padding-top: 5px;
+	}
+	.closed {
+		display: none;
 	}
 
 	input {

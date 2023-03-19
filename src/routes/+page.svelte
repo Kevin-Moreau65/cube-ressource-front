@@ -1,10 +1,15 @@
+<script lang="ts">
+	import { storeTitle } from '$lib/store';
+
+	storeTitle.set('Acceuil');
+</script>
+
 <svelte:head>
 	<title>Home</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
 <section>
-	<h1>Accueil</h1>
 	<div class="logo">
 		<img src="/Ressources_logo.svg" alt="Logo Ressources" />
 	</div>

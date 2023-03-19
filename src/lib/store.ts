@@ -44,3 +44,4 @@ if (browser) {
 		localStorage.setItem('user', JSON.stringify(user));
 	});
 }
+export const storeTitle = writable<string>('');

@@ -1,12 +1,9 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
-	import { user } from '$lib/store';
+	import { storeTitle, user } from '$lib/store';
 	import convertDate from '$lib/utils/convert-date';
-	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import type { Comment } from '$lib/models/comment';
-
+	storeTitle.set('Ressource');
 	export let data: PageData;
 	const { ressource } = data;
 </script>
