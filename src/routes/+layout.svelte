@@ -3,11 +3,10 @@
 	import Footer from '$lib/Footer.svelte';
 	import Header from '$lib/Header.svelte';
 	import Loading from '$lib/Loading.svelte';
-	import Toast from '$lib/toast/toast.svelte';
+	import { Toast } from 'sveltle-component-notification';
 	import './styles.css';
 </script>
 
-<Toast />
 <div class="app">
 	{#if $navigating}
 		<Loading />
@@ -20,6 +19,7 @@
 
 	<Footer />
 </div>
+<Toast round verticalPosition="top" horizontalPosition="middle" />
 
 <style>
 	.app {

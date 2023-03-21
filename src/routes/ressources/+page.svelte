@@ -130,7 +130,7 @@
 			action={() => (isOpen = !isOpen)}
 		/>
 	</div>
-	<div class="content" bind:this={scroll} on:scroll={(e) => (y = scroll.scrollTop)}>
+	<div class="content" bind:this={scroll} on:scroll={() => (y = scroll.scrollTop)}>
 		{#each data.result.data as ressource}
 			<a href={`/ressources/${ressource.id}`}>
 				<div class="bloc">
@@ -172,7 +172,6 @@
 		flex-direction: column;
 		width: 100%;
 		min-height: 100%;
-		gap: 15px;
 		padding: 0px 10px 0px 10px;
 	}
 	.content a {
@@ -215,10 +214,14 @@
 		font-weight: lighter;
 	}
 	.top-button {
-		background: white;
+		background: transparent;
 		width: 100%;
-		height: 53px;
+		height: auto;
 		padding-top: 5px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
 	}
 	.closed {
 		display: none;

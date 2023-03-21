@@ -1,15 +1,18 @@
 <script lang="ts">
 	import FormLogin from '$lib/login/FormLogin.svelte';
 	import FormSignUp from '$lib/login/FormSignUp.svelte';
+	import { storeTitle } from '$lib/store';
 
 	let toLogin = true;
 	const switchForm = () => {
 		toLogin = !toLogin;
 	};
+	$: {
+		storeTitle.set(toLogin ? 'Se connecter' : 'Créer un compte');
+	}
 </script>
 
 <div class="main">
-	<h1>{toLogin ? 'Se connecter' : 'Créer un compte'}</h1>
 	{#if toLogin}
 		<FormLogin />
 	{:else}

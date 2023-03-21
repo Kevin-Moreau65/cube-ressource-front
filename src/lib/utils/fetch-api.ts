@@ -15,11 +15,13 @@ export const fetchApi = async <T extends ResponseAPI>(
 	url: string,
 	method: HttpMethod,
 	fetch: Fetch,
+	token?: string,
 	body?: object
 ): Promise<T> => {
 	const headers = new Headers();
 	headers.append('Accept', 'application/json');
 	headers.append('Content-Type', 'application/json');
+	headers.append('Authorization', `Bearer ${token}`);
 	const options: Options = {
 		headers,
 		method

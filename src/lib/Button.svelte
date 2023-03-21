@@ -36,5 +36,9 @@
 		padding: 10px;
 		border-radius: 5px;
 		user-select: none;
+		transition: all 0.2s;
+	}
+	button:active {
+		transform: scale(0.9);
 	}
 </style>

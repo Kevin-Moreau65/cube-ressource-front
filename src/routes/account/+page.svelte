@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
-	import { user } from '$lib/store';
+	import { storeTitle, user } from '$lib/store';
 	import { page } from '$app/stores';
+	storeTitle.set('Compte');
 </script>
 
 <div class="main">
-	<h1>Informations :</h1>
 	<p>Prénom : {$user.firstName}</p>
 	<p>Nom : {$user.lastName}</p>
 	<p>Pseudo : {$user.username}</p>

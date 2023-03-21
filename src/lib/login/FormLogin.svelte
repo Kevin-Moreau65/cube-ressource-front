@@ -4,7 +4,7 @@
 	import Loading from '$lib/Loading.svelte';
 	import { login } from '$lib/models/account';
 	import { user } from '$lib/store';
-	import toast from '$lib/toast/store/toast';
+	import { storeToast } from 'sveltle-component-notification';
 	let email = '';
 	let password = '';
 	let isLoading = false;
@@ -14,13 +14,13 @@
 			const res = await login(email, password);
 			isLoading = false;
 			if (res.statusCode !== 200) {
-				toast.push({
+				storeToast.push({
 					message: 'Une erreur est survenue, veuillez réessayer',
 					type: 'error',
 					timeout: 5000
 				});
 			} else {
-				toast.push({
+				storeToast.push({
 					message: `Bienvenue ${res.firstName} ${res.lastName} !`,
 					type: 'confirmation',
 					timeout: 5000
@@ -32,7 +32,7 @@
 			}
 		} catch (e: any) {
 			isLoading = false;
-			toast.push({
+			storeToast.push({
 				message: e.message || 'Une erreur est survenue, veuillez réessayer',
 				type: 'error',
 				timeout: 5000

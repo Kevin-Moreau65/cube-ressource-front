@@ -2,7 +2,7 @@
 	import Button from '$lib/Button.svelte';
 	import Loading from '$lib/Loading.svelte';
 	import { signUp } from '$lib/models/account';
-	import toast from '$lib/toast/store/toast';
+	import { storeToast } from 'sveltle-component-notification';
 	export let toLogin: boolean;
 	let isLoading = false;
 	let isPasswordGood = false;
@@ -37,22 +37,22 @@
 			);
 			isLoading = false;
 			if (res.statusCode === 200) {
-				toast.push({
+				storeToast.push({
 					message: 'Compte créé avec succès !',
 					type: 'confirmation',
 					timeout: 5000
 				});
 				toLogin = true;
 			} else {
-				toast.push({
-					message: res.message || 'Une erreur est survenue, veuillez réessayer',
+				storeToast.push({
+					message: res.error || 'Une erreur est survenue, veuillez réessayer',
 					type: 'error',
 					timeout: 5000
 				});
 			}
 		} catch (e: any) {
 			isLoading = false;
-			toast.push({
+			storeToast.push({
 				message: e.message || 'Une erreur est survenue, veuillez réessayer',
 				type: 'error',
 				timeout: 5000
