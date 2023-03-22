@@ -40,16 +40,6 @@
 	<Loading />
 {/if}
 <div class="main">
-	<div class="top-button">
-		<a href="/ressources">
-			<Button
-				title="Retour Menu"
-				action={() => history.back()}
-				buttonType="button"
-				style="height: 1.3rem;"
-			/>
-		</a>
-	</div>
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 	<div class="content" tabindex="0">
 		<h1 class="title">{ressource.title}</h1>
@@ -104,9 +94,10 @@
 						isLoading = true;
 						await postComment($user.token, {
 							content: commentValue,
-							ressourceId: parseInt($page.params.id)
+							resourceId: parseInt($page.params.id)
 						});
 						isLoading = false;
+						invalidateAll();
 					}}
 				/>
 			{:else}

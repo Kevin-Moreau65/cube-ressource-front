@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { storeTitle } from '$lib/store';
 
-	storeTitle.set('Acceuil');
+	storeTitle.set('Accueil');
 </script>
 
 <svelte:head>

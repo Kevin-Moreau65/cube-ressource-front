@@ -37,6 +37,7 @@
 		color: white;
 		text-align: center;
 		margin: 0;
+		user-select: none;
 	}
 	.icon {
 		top: -10px;
