@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { storeTitle } from './store';
 	const gotoHome = async (e: KeyboardEvent) => {
