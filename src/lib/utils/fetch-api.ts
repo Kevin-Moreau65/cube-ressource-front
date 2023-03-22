@@ -19,6 +19,7 @@ export const fetchApi = async <T extends ResponseAPI>(
 	body?: object
 ): Promise<T> => {
 	const headers = new Headers();
+	headers.append('Authorization', `Bearer ${token}`);
 	headers.append('Accept', 'application/json');
 	headers.append('Content-Type', 'application/json');
 	headers.append('Authorization', `Bearer ${token}`);
