@@ -1,4 +1,3 @@
-import { fetchApi, type Fetch, type ResponseAPI } from '$lib/utils/fetch-api';
 import type { User } from './account';
 
 // {

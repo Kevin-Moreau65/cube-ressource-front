@@ -35,7 +35,7 @@ interface LoginResponse extends ResponseAPI {
 	id: number;
 }
 export const login = async (email: string, password: string) => {
-	const res = await fetchApi<LoginResponse>('/api/users/authenticate', 'POST', fetch, {
+	const res = await fetchApi<LoginResponse>('/api/users/authenticate', 'POST', fetch, '', {
 		email,
 		password
 	});
@@ -48,7 +48,7 @@ export const signUp = async (
 	lastName: string,
 	username: string
 ) => {
-	const res = await fetchApi('/api/users', 'POST', fetch, {
+	const res = await fetchApi('/api/users', 'POST', fetch, '', {
 		email,
 		password,
 		firstName,
