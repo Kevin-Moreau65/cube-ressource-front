@@ -5,12 +5,19 @@
 	import convertDate from '$lib/utils/convert-date';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import type { Comment } from '$lib/models/comment';
+	import { postComment, type Comment } from '$lib/models/comment';
+	import Loading from '$lib/Loading.svelte';
 
 	export let data: PageData;
 	const { ressource } = data;
+
+	let commentValue = '';
+	let isLoading = false;
 </script>
 
+{#if isLoading}
+	<Loading />
+{/if}
 <div class="main">
 	<div class="top-button">
 		<a href="/ressources">
@@ -38,8 +45,18 @@
 		<h1>Commentaires</h1>
 		<div class="comment">
 			{#if $user.id !== 0}
-				<textarea placeholder="Ajouter un commentaire..." />
-				<Button title="Commenter" />
+				<textarea placeholder="Ajouter un commentaire..." bind:value={commentValue} />
+				<Button
+					title="Commenter"
+					action={async () => {
+						isLoading = true;
+						await postComment($user.token, {
+							content: commentValue,
+							ressourceId: parseInt($page.params.id)
+						});
+						isLoading = false;
+					}}
+				/>
 			{:else}
 				<textarea
 					placeholder="Veuillez vous connecter pour commenter !"

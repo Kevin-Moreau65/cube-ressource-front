@@ -1,5 +1,6 @@
 import { fetchApi, type Fetch, type ResponseAPI } from '$lib/utils/fetch-api';
 import type { User } from './account';
+import { user } from '$lib/store';
 
 // {
 //     "id": 0,
@@ -19,3 +20,11 @@ export interface Comment {
 	userId: number;
 	user: User;
 }
+
+export const postComment = async (
+	token: string,
+	comment: Pick<Comment, 'content' | 'ressourceId'>
+) => {
+	const res = await fetchApi('/api/Comments', 'POST', fetch, token, comment);
+	return res;
+};
