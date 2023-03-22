@@ -32,9 +32,6 @@
 	import { postComment, type Comment } from '$lib/models/comment';
 	import Loading from '$lib/Loading.svelte';
 
-	export let data: PageData;
-	const { ressource } = data;
-
 	let commentValue = '';
 	let isLoading = false;
 </script>

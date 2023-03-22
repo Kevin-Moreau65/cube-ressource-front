@@ -47,7 +47,7 @@
 				/></svg
 			>
 			<p>
-				{$user === null || $user.id === 0 ? 'Se connecter' : `${$user.firstName} ${$user.lastName}`}
+				{$user === null || $user.id === 0 ? 'Se connecter' : `${$user.username}`}
 			</p>
 		</div>
 	</a>
