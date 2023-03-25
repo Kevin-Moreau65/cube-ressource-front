@@ -43,7 +43,7 @@ export const getRessources = async (
 	const res = await fetchApi<RessourcesResponse>(
 		`/api/resources?${pageNumber ? `PageNumber=${pageNumber}&` : ''}${
 			pageSize ? `PageSize=${pageSize}&` : ''
-		}${triType ? `triType=${triType}` : ''}${search ? `search=${search}` : ''}`,
+		}${triType ? `triType=${triType}&` : ''}${search ? `search=${search}` : ''}`,
 		'GET',
 		fetch
 	);

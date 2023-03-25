@@ -7,6 +7,8 @@
 	import convertDate from '$lib/utils/convert-date';
 	import { storeToast } from 'sveltle-component-notification';
 	import type { PageData } from './$types';
+	import { postComment, type Comment } from '$lib/models/comment';
+	import Loading from '$lib/Loading.svelte';
 	storeTitle.set('Ressource');
 	export let data: PageData;
 	const { ressource } = data;
@@ -29,11 +31,35 @@
 		});
 		invalidateAll();
 	};
-	import { postComment, type Comment } from '$lib/models/comment';
-	import Loading from '$lib/Loading.svelte';
 
 	let commentValue = '';
 	let isLoading = false;
+
+	const addComment = async () => {
+		isLoading = true;
+		const res = await postComment($user.token, {
+			content: commentValue,
+			resourceId: parseInt($page.params.id)
+		});
+		isLoading = false;
+		if (res.statusCode === 200) {
+			storeToast.push({
+				type: 'confirmation',
+				message: 'Commentaire poster avec succès',
+				timeout: 5000
+			});
+		} else {
+			storeToast.push({
+				type: 'error',
+				message: 'Une erreur est survenue',
+				timeout: 5000
+			});
+		}
+		invalidateAll();
+	};
+	const toFavorite = () => {
+		console.log('On attend le back !');
+	};
 </script>
 
 {#if isLoading}
@@ -53,30 +79,52 @@
 					{ressource.description}
 				</p>
 			</div>
-			<div class="vote">
-				<div class="svg-wrapper" on:click={() => vote(true)} on:keypress={() => vote(true)}>
-					<svg
-						fill="#000000"
-						width="800px"
-						height="800px"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-						><path
-							d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"
-						/></svg
-					>
+			<div class="actions">
+				<div class="vote">
+					<div class="svg-wrapper" on:click={() => vote(true)} on:keypress={() => vote(true)}>
+						<svg
+							fill="#000000"
+							width="800px"
+							height="800px"
+							viewBox="0 0 24 24"
+							xmlns="http://www.w3.org/2000/svg"
+							><path
+								d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"
+							/></svg
+						>
+					</div>
+					<div class="svg-wrapper" on:click={() => vote(false)} on:keypress={() => vote(false)}>
+						<svg
+							fill="#000000"
+							width="800px"
+							height="800px"
+							viewBox="0 0 24 24"
+							xmlns="http://www.w3.org/2000/svg"
+							><path
+								d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"
+							/></svg
+						>
+					</div>
 				</div>
-				<div class="svg-wrapper" on:click={() => vote(false)} on:keypress={() => vote(false)}>
-					<svg
-						fill="#000000"
-						width="800px"
-						height="800px"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-						><path
-							d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"
-						/></svg
-					>
+				<div class="favorite">
+					<div class="svg-wrapper" on:click={toFavorite} on:keypress={() => vote(false)}>
+						<svg
+							fill="#000000"
+							height="800px"
+							width="800px"
+							version="1.1"
+							id="Layer_1"
+							xmlns="http://www.w3.org/2000/svg"
+							xmlns:xlink="http://www.w3.org/1999/xlink"
+							viewBox="0 0 482.207 482.207"
+							xml:space="preserve"
+						>
+							<polygon
+								points="482.207,186.973 322.508,153.269 241.104,11.803 159.699,153.269 0,186.973 109.388,308.108 92.094,470.404 
+	241.104,403.803 390.113,470.404 372.818,308.108 "
+							/>
+						</svg>
+					</div>
 				</div>
 			</div>
 			<!-- <div class="fichier">
@@ -88,18 +136,7 @@
 		<div class="comment">
 			{#if $user.id !== 0}
 				<textarea placeholder="Ajouter un commentaire..." bind:value={commentValue} />
-				<Button
-					title="Commenter"
-					action={async () => {
-						isLoading = true;
-						await postComment($user.token, {
-							content: commentValue,
-							resourceId: parseInt($page.params.id)
-						});
-						isLoading = false;
-						invalidateAll();
-					}}
-				/>
+				<Button title="Commenter" action={addComment} />
 			{:else}
 				<textarea
 					placeholder="Veuillez vous connecter pour commenter !"
@@ -140,11 +177,25 @@
 	.top-button {
 		position: fixed;
 	}
+	.actions {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
 	.vote {
 		width: 200px;
 		height: 35px;
 		display: flex;
 		flex-direction: row;
+	}
+	.favorite {
+		height: 35px;
+	}
+	.favorite:hover .svg-wrapper svg {
+		cursor: pointer;
+		fill: gold;
 	}
 	.svg-wrapper {
 		height: 100%;
@@ -155,15 +206,15 @@
 		width: 100%;
 		aspect-ratio: 1/1;
 	}
-	.svg-wrapper:nth-child(1):hover svg {
+	.vote .svg-wrapper:nth-child(1):hover svg {
 		fill: green;
 		cursor: pointer;
 	}
-	.svg-wrapper:nth-child(2):hover svg {
+	.vote .svg-wrapper:nth-child(2):hover svg {
 		fill: red;
 		cursor: pointer;
 	}
-	.svg-wrapper:nth-child(2) svg {
+	.vote .svg-wrapper:nth-child(2) svg {
 		transform: rotate(180deg);
 	}
 	h1 {

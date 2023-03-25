@@ -37,6 +37,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"sveltle-component-notification": "^1.0.4"
+		"sveltle-component-notification": "^1.0.5"
 	}
 }
