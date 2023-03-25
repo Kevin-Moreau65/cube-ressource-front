@@ -32,13 +32,18 @@ interface RessourceResponse extends ResponseAPI {
 }
 
 export const getRessources = async (
-	{ pageNumber, pageSize, triType }: { pageNumber?: string; pageSize?: string; triType?: string },
+	{
+		pageNumber,
+		pageSize,
+		triType,
+		search
+	}: { pageNumber?: string; pageSize?: string; triType?: string; search?: string },
 	fetch: Fetch
 ) => {
 	const res = await fetchApi<RessourcesResponse>(
 		`/api/resources?${pageNumber ? `PageNumber=${pageNumber}&` : ''}${
 			pageSize ? `PageSize=${pageSize}&` : ''
-		}${triType ? `triType=${triType}` : ''}`,
+		}${triType ? `triType=${triType}` : ''}${search ? `search=${search}` : ''}`,
 		'GET',
 		fetch
 	);
