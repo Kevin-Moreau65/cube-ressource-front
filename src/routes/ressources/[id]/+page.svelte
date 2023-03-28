@@ -94,7 +94,7 @@
 					{ressource.description}
 				</p>
 			</div>
-			<div class="actions">
+			<div class="actions" style={$user.id === 0 ? 'display: none' : ''}>
 				<div class="vote">
 					<div
 						class="svg-wrapper"
@@ -177,7 +177,7 @@
 		</div>
 		{#if data.ressource.comments.length > 0}
 			{#each data.ressource.comments as comment}
-				<div class="bloc">
+				<div class="bloc" class:self={comment.userId === $user.id}>
 					<div class="title-commentaire">
 						<p>{comment.user.username}</p>
 						<p>{convertDate(comment.datePost)}</p>
@@ -261,6 +261,9 @@
 		width: 100%;
 		height: auto;
 	}
+	.bloc.self {
+		border: 4px solid var(--accent-color);
+	}
 	.comment {
 		display: flex;
 		gap: 10px;
@@ -292,6 +295,7 @@
 		width: 100%;
 		height: 100%;
 		overflow: auto;
+		padding-bottom: 10px;
 	}
 
 	::placeholder {

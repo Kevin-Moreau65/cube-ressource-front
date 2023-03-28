@@ -19,7 +19,7 @@
 
 	<Footer />
 </div>
-<Toast round verticalPosition="top" horizontalPosition="middle" width="300px" />
+<Toast round verticalPosition="top" horizontalPosition="middle" width="clamp(300px, 75%, 500px)" />
 
 <style>
 	.app {
