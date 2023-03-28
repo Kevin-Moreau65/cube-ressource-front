@@ -15,6 +15,10 @@ export interface Ressource {
 	userId: number;
 	comments: Comment[];
 	user: User;
+	voted?: {
+		id: number;
+		type: 'upvote' | 'downvote';
+	};
 }
 
 export enum TriType {
@@ -50,15 +54,15 @@ export const getRessources = async (
 	return res;
 };
 
-export const getRessource = async (id: string, fetch: Fetch) => {
-	const res = await fetchApi<RessourceResponse>(`/api/resources/${id}`, 'GET', fetch);
+export const getRessource = async (id: string, fetch: Fetch, token?: string) => {
+	const res = await fetchApi<RessourceResponse>(`/api/resources/${id}`, 'GET', fetch, token);
 	return res;
 };
 export const upVoteRessource = async (idRessource: string, fetch: Fetch, token: string) => {
-	const res = await fetchApi(`/api/resources/${idRessource}/upvote`, 'POST', fetch, token);
+	const res = await fetchApi(`/api/resources/${idRessource}/upvote`, 'PUT', fetch, token);
 	return res;
 };
 export const downVoteRessource = async (idRessource: string, fetch: Fetch, token: string) => {
-	const res = await fetchApi(`/api/resources/${idRessource}/downvote`, 'POST', fetch, token);
+	const res = await fetchApi(`/api/resources/${idRessource}/downvote`, 'PUT', fetch, token);
 	return res;
 };

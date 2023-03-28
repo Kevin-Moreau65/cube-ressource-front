@@ -16,7 +16,7 @@
 		const res = isUpVote
 			? await upVoteRessource($page.params.id, fetch, $user.token)
 			: await downVoteRessource($page.params.id, fetch, $user.token);
-		if (res.statusCode !== 200) {
+		if (res.statusCode !== 204) {
 			storeToast.push({
 				message: res.error || 'Un erreur est survenue, veuillez réessayer plus tard.',
 				type: 'error',
@@ -81,7 +81,12 @@
 			</div>
 			<div class="actions">
 				<div class="vote">
-					<div class="svg-wrapper" on:click={() => vote(true)} on:keypress={() => vote(true)}>
+					<div
+						class="svg-wrapper"
+						on:click={() => vote(true)}
+						on:keypress={() => vote(true)}
+						class:upvoted={data.ressource.voted?.type === 'upvote'}
+					>
 						<svg
 							fill="#000000"
 							width="800px"
@@ -93,7 +98,12 @@
 							/></svg
 						>
 					</div>
-					<div class="svg-wrapper" on:click={() => vote(false)} on:keypress={() => vote(false)}>
+					<div
+						class="svg-wrapper"
+						on:click={() => vote(false)}
+						on:keypress={() => vote(false)}
+						class:downvoted={data.ressource.voted?.type === 'downvote'}
+					>
 						<svg
 							fill="#000000"
 							width="800px"
@@ -173,9 +183,6 @@
 		min-height: 100%;
 		gap: 15px;
 		padding: 5px 10px 0px 10px;
-	}
-	.top-button {
-		position: fixed;
 	}
 	.actions {
 		width: 100%;
@@ -276,5 +283,11 @@
 	.fichier img {
 		width: 40px;
 		height: 40px;
+	}
+	.upvoted svg {
+		fill: green;
+	}
+	.downvoted svg {
+		fill: red;
 	}
 </style>
