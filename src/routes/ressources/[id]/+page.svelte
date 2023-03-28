@@ -2,7 +2,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
-	import { downVoteRessource, upVoteRessource } from '$lib/models/ressources';
+	import { downVoteRessource, favRessource, upVoteRessource } from '$lib/models/ressources';
 	import { storeTitle, user } from '$lib/store';
 	import convertDate from '$lib/utils/convert-date';
 	import { storeToast } from 'sveltle-component-notification';
@@ -26,6 +26,24 @@
 		}
 		storeToast.push({
 			message: 'Ressource voté avec succès !',
+			type: 'confirmation',
+			timeout: 5000
+		});
+		invalidateAll();
+	};
+
+	const favorite = async () => {
+		const res = await favRessource($page.params.id, fetch, $user.token);
+		if (res.statusCode !== 200) {
+			storeToast.push({
+				message: res.error || 'Un erreur est survenue, veuillez réessayer plus tard.',
+				type: 'error',
+				timeout: 5000
+			});
+			return;
+		}
+		storeToast.push({
+			message: 'Ressource ajoutée en favorie avec succès !',
 			type: 'confirmation',
 			timeout: 5000
 		});
@@ -56,9 +74,6 @@
 			});
 		}
 		invalidateAll();
-	};
-	const toFavorite = () => {
-		console.log('On attend le back !');
 	};
 </script>
 
@@ -117,7 +132,12 @@
 					</div>
 				</div>
 				<div class="favorite">
-					<div class="svg-wrapper" on:click={toFavorite} on:keypress={() => vote(false)}>
+					<div
+						class="svg-wrapper"
+						on:click={favorite}
+						on:keypress={() => favorite}
+						class:isFav={data.ressource.favoris !== null}
+					>
 						<svg
 							fill="#000000"
 							height="800px"
@@ -289,5 +309,9 @@
 	}
 	.downvoted svg {
 		fill: red;
+	}
+
+	.isFav svg {
+		fill: gold;
 	}
 </style>

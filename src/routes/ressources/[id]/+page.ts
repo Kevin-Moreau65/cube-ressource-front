@@ -5,7 +5,7 @@ import type { PageLoad } from './$types';
 
 export const load = (async ({ params, fetch }) => {
 	const result = await getRessource(params.id, fetch, get(user).token);
-	console.log(result);
+	console.log(result.data.favoris !== null);
 	return {
 		ressource: { ...result.data }
 	};

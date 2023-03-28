@@ -19,6 +19,12 @@ export interface Ressource {
 		id: number;
 		type: 'upvote' | 'downvote';
 	};
+	favoris?: {
+		id: number;
+		ressource: number;
+		resourceId: number;
+		userId: number;
+	};
 }
 
 export enum TriType {
@@ -64,5 +70,9 @@ export const upVoteRessource = async (idRessource: string, fetch: Fetch, token: 
 };
 export const downVoteRessource = async (idRessource: string, fetch: Fetch, token: string) => {
 	const res = await fetchApi(`/api/resources/${idRessource}/downvote`, 'PUT', fetch, token);
+	return res;
+};
+export const favRessource = async (idRessource: string, fetch: Fetch, token: string) => {
+	const res = await fetchApi(`/api/Favoris/${idRessource}`, 'POST', fetch, token);
 	return res;
 };
