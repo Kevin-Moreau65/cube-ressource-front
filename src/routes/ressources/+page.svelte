@@ -4,11 +4,12 @@
 	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
 	import { TriType } from '$lib/models/ressources';
-	import { storeTitle } from '$lib/store';
+	import { storeTitle, user } from '$lib/store';
 	import convertDate from '$lib/utils/convert-date';
 	import type { PageData } from './$types';
 	export let data: PageData;
-	let isOpen = false;
+	let isOpenF = false;
+	let isOpenC = false;
 	let pageSize: string;
 	let nextLink: string;
 	let previousLink: string;
@@ -70,7 +71,7 @@
 </script>
 
 <div class="main">
-	<div class="popup-filter" class:open={isOpen}>
+	<div class="popup-filter" class:open={isOpenF}>
 		<div class="filter-content">
 			<h2>Filter / Trier</h2>
 			<div>
@@ -96,7 +97,7 @@
 					link="/"
 					buttonType="button"
 					style="height: auto;"
-					action={() => (isOpen = !isOpen)}
+					action={() => (isOpenF = !isOpenF)}
 				/>
 				<Button
 					title="Appliquer"
@@ -104,13 +105,46 @@
 					buttonType="button"
 					style="height: auto;"
 					action={() => {
-						isOpen = false;
+						isOpenF = false;
 						filter();
 					}}
 				/>
 			</div>
 		</div>
 	</div>
+	<div class="popup-create" class:open={isOpenC}>
+		<div class="create-content">
+			<h2>Créer une ressource</h2>
+			<div>
+				<p>Titre de la ressource :</p>
+				<textarea placeholder="Ajouter un titre..." class="titre-ressource" />
+			</div>
+			<div>
+				<p>Description :</p>
+				<textarea placeholder="Ajouter une description..." class="description-ressource" />
+			</div>
+			<div>
+				<Button
+					title="Annuler"
+					link="/"
+					buttonType="button"
+					style="height: auto;"
+					action={() => (isOpenC = !isOpenC)}
+				/>
+				<Button
+					title="Appliquer"
+					link="/"
+					buttonType="button"
+					style="height: auto;"
+					action={() => {
+						isOpenC = false;
+						filter();
+					}}
+				/>
+			</div>
+		</div>
+	</div>
+
 	<div class="top-button" class:closed={y > 80}>
 		<input
 			type="text"
@@ -127,8 +161,17 @@
 			link="/"
 			buttonType="button"
 			style="height: auto;"
-			action={() => (isOpen = !isOpen)}
+			action={() => (isOpenF = !isOpenF)}
 		/>
+		{#if $user.id !== 0}
+			<Button
+				title="Créer une ressource"
+				link="/"
+				buttonType="button"
+				style="height: auto;"
+				action={() => (isOpenC = !isOpenC)}
+			/>
+		{/if}
 	</div>
 	<div class="content" bind:this={scroll} on:scroll={() => (y = scroll.scrollTop)}>
 		{#each data.result.data as ressource}
@@ -294,6 +337,24 @@
 		opacity: 0;
 		transition: all 0.3s;
 	}
+
+	.popup-create {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 100%;
+		margin: 0px;
+		background-color: rgba(0, 0, 0, 0.47);
+		backdrop-filter: blur(5px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		visibility: collapse;
+		opacity: 0;
+		transition: all 0.3s;
+	}
+
 	.open {
 		opacity: 1;
 		visibility: visible;
@@ -318,6 +379,26 @@
 		justify-content: flex-start;
 	}
 	.filter-content div {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.create-content {
+		width: auto;
+		padding: 15px;
+		height: auto;
+		background-color: white;
+		border-radius: 12px;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.create-content div {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
