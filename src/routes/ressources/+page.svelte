@@ -112,38 +112,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="popup-create" class:open={isOpenC}>
-		<div class="create-content">
-			<h2>Créer une ressource</h2>
-			<div>
-				<p>Titre de la ressource :</p>
-				<textarea placeholder="Ajouter un titre..." class="titre-ressource" />
-			</div>
-			<div>
-				<p>Description :</p>
-				<textarea placeholder="Ajouter une description..." class="description-ressource" />
-			</div>
-			<div>
-				<Button
-					title="Annuler"
-					link="/"
-					buttonType="button"
-					style="height: auto;"
-					action={() => (isOpenC = !isOpenC)}
-				/>
-				<Button
-					title="Appliquer"
-					link="/"
-					buttonType="button"
-					style="height: auto;"
-					action={() => {
-						isOpenC = false;
-						filter();
-					}}
-				/>
-			</div>
-		</div>
-	</div>
 
 	<div class="top-button" class:closed={y > 80}>
 		<input
@@ -164,13 +132,15 @@
 			action={() => (isOpenF = !isOpenF)}
 		/>
 		{#if $user.id !== 0}
-			<Button
-				title="Créer une ressource"
-				link="/"
-				buttonType="button"
-				style="height: auto;"
-				action={() => (isOpenC = !isOpenC)}
-			/>
+			<a href="/ressources/new">
+				<Button
+					title="Créer une ressource"
+					link="/"
+					buttonType="button"
+					style="height: auto;"
+					action={() => (isOpenC = !isOpenC)}
+				/>
+			</a>
 		{/if}
 	</div>
 	<div class="content" bind:this={scroll} on:scroll={() => (y = scroll.scrollTop)}>
