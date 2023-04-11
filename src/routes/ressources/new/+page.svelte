@@ -2,7 +2,12 @@
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
-	import { downVoteRessource, favRessource, upVoteRessource } from '$lib/models/ressources';
+	import {
+		downVoteRessource,
+		favRessource,
+		upVoteRessource,
+		createRessource
+	} from '$lib/models/ressources';
 	import { storeTitle, user } from '$lib/store';
 	import convertDate from '$lib/utils/convert-date';
 	import { storeToast } from 'sveltle-component-notification';
@@ -13,6 +18,8 @@
 	export let data: PageData;
 
 	let isLoading = false;
+	let title = '';
+	let description = '';
 </script>
 
 {#if isLoading}
@@ -25,11 +32,11 @@
 		<div class="bloc">
 			<div class="ressource-title">
 				<p>Titre :</p>
-				<textarea placeholder="Ajouter un titre..." />
+				<textarea placeholder="Ajouter un titre..." bind:value={title} />
 			</div>
 			<div class="ressource-description">
 				<p>Description :</p>
-				<textarea placeholder="Ajouter une description..." />
+				<textarea placeholder="Ajouter une description..." bind:value={description} />
 			</div>
 			<div class="ressource-categorie">
 				<p>Catégorie :</p>
@@ -43,6 +50,12 @@
 			<div class="ressource-files">
 				<p>Joindre un fichier :</p>
 			</div>
+			<Button
+				title="Créer la ressource"
+				link="/ressources"
+				buttonType="submit"
+				style="height: auto;"
+			/>
 		</div>
 	</div>
 </div>

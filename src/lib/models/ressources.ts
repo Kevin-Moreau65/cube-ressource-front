@@ -76,3 +76,16 @@ export const favRessource = async (idRessource: string, fetch: Fetch, token: str
 	const res = await fetchApi(`/api/Favoris/${idRessource}`, 'POST', fetch, token);
 	return res;
 };
+
+export const createRessource = async (
+	fetch: Fetch,
+	token: string,
+	title: string,
+	description: string
+) => {
+	const res = await fetchApi(`/api/Resources`, 'POST', fetch, token, {
+		title,
+		description
+	});
+	return res;
+};
