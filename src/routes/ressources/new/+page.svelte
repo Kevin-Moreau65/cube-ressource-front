@@ -41,10 +41,10 @@
 			<div class="ressource-categorie">
 				<p>Catégorie :</p>
 				<select>
-					<option> Alphabetique </option>
-					<option> Plus vieux </option>
-					<option> Plus récent </option>
-					<option> Popularité </option>
+					<option> Texte </option>
+					<option> Document </option>
+					<option> Lien </option>
+					<option> Photo </option>
 				</select>
 			</div>
 			<div class="ressource-files">
