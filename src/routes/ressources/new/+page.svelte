@@ -1,18 +1,10 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
-	import {
-		downVoteRessource,
-		favRessource,
-		upVoteRessource,
-		createRessource
-	} from '$lib/models/ressources';
+	import { createRessource } from '$lib/models/ressources';
 	import { storeTitle, user } from '$lib/store';
-	import convertDate from '$lib/utils/convert-date';
 	import { storeToast } from 'sveltle-component-notification';
 	import type { PageData } from './$types';
-	import { postComment, type Comment } from '$lib/models/comment';
 	import Loading from '$lib/Loading.svelte';
 	storeTitle.set('Ressource');
 	export let data: PageData;
@@ -20,6 +12,26 @@
 	let isLoading = false;
 	let title = '';
 	let description = '';
+
+	const addResource = async () => {
+		isLoading = true;
+		const res = await createRessource(fetch, $user.token, title, description);
+		isLoading = false;
+		if (res.statusCode === 200) {
+			storeToast.push({
+				type: 'confirmation',
+				message: 'Ressource créée avec succès',
+				timeout: 5000
+			});
+		} else {
+			storeToast.push({
+				type: 'error',
+				message: 'Une erreur est survenue',
+				timeout: 5000
+			});
+		}
+		invalidateAll();
+	};
 </script>
 
 {#if isLoading}
@@ -50,12 +62,7 @@
 			<div class="ressource-files">
 				<p>Joindre un fichier :</p>
 			</div>
-			<Button
-				title="Créer la ressource"
-				link="/ressources"
-				buttonType="submit"
-				style="height: auto;"
-			/>
+			<Button title="Créer la ressource" action={createRessource} style="height: auto;" />
 		</div>
 	</div>
 </div>
