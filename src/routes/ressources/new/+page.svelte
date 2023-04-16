@@ -17,6 +17,8 @@
 		isLoading = true;
 		const res = await createRessource(fetch, $user.token, title, description);
 		isLoading = false;
+		console.log(res);
+		console.log(title);
 		if (res.statusCode === 200) {
 			storeToast.push({
 				type: 'confirmation',
@@ -30,7 +32,8 @@
 				timeout: 5000
 			});
 		}
-		invalidateAll();
+		console.log(res);
+		console.log(title);
 	};
 </script>
 
@@ -62,7 +65,7 @@
 			<div class="ressource-files">
 				<p>Joindre un fichier :</p>
 			</div>
-			<Button title="Créer la ressource" action={createRessource} style="height: auto;" />
+			<Button title="Créer la ressource" action={addResource} style="height: auto;" />
 		</div>
 	</div>
 </div>
