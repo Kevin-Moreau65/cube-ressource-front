@@ -19,7 +19,7 @@
 		isLoading = false;
 		console.log(res);
 		console.log(title);
-		if (res.statusCode === 200) {
+		if (res.statusCode === 201) {
 			storeToast.push({
 				type: 'confirmation',
 				message: 'Ressource créée avec succès',
