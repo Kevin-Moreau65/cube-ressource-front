@@ -5,6 +5,7 @@
 	import { storeTitle, user } from '$lib/store';
 	import { storeToast } from 'sveltle-component-notification';
 	import type { PageData } from './$types';
+	import { goto } from '$app/navigation';
 	import Loading from '$lib/Loading.svelte';
 	storeTitle.set('Ressource');
 	export let data: PageData;
@@ -25,6 +26,7 @@
 				message: 'Ressource créée avec succès',
 				timeout: 5000
 			});
+			goto('/ressources');
 		} else {
 			storeToast.push({
 				type: 'error',
