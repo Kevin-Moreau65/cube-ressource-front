@@ -8,7 +8,10 @@ export enum Role {
 	Administrator = 2,
 	SuperAdministrator = 3
 }
-export type PartialUser = Pick<User, 'id' | 'email' | 'firstName' | 'lastName' | 'username'>;
+export type PartialUser = Pick<
+	User,
+	'id' | 'email' | 'firstName' | 'lastName' | 'username' | 'role'
+>;
 interface StoreUser extends PartialUser {
 	token: string;
 }
@@ -23,7 +26,8 @@ const setAccount = () => {
 		lastName: '',
 		username: '',
 		email: '',
-		token: ''
+		token: '',
+		role: Role.User
 	};
 };
 
@@ -36,7 +40,8 @@ export const user: Writable<StoreUser> = writable(
 				lastName: '',
 				username: '',
 				email: '',
-				token: ''
+				token: '',
+				role: Role.User
 		  }
 );
 if (browser) {

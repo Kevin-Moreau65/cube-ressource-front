@@ -7,16 +7,18 @@
 	let isLoading = false;
 	let isPasswordGood = false;
 	let isPasswordConfirm = true;
+	let error = '';
 	let formData = {
 		email: '',
 		firstName: '',
 		lastName: '',
 		username: '',
 		password: '',
-		confirmPassword: ''
+		confirmPassword: '',
+		phoneNumber: ''
 	};
 	const checkPassword = (pass: string) => {
-		const reg = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
+		const reg = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{12,})');
 		return reg.test(pass);
 	};
 	$: {
@@ -25,7 +27,40 @@
 	$: {
 		isPasswordGood = checkPassword(formData.password);
 	}
+	$: {
+		const regEmail = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+		if (!regEmail.test(formData.email)) {
+			error = "L'adresse mail n'est pas correct";
+		} else if (formData.firstName === '') {
+			error = "Le prénom  rentré n'est pas correct";
+		} else if (formData.lastName === '') {
+			error = "Le nom  rentré n'est pas correct";
+		} else if (formData.username === '') {
+			error = "Le pseudo  rentré n'est pas correct";
+		} else error = '';
+	}
 	const handleSubmit = async () => {
+		if (error) {
+			storeToast.push({ message: error, type: 'error', timeout: 5000 });
+			return;
+		}
+		if (!isPasswordGood) {
+			storeToast.push({
+				message:
+					'Le mot de passe doit contenir un caractère spécial, une minuscule, une majuscule, un chiffre et doit avoir 12 caractères',
+				type: 'error',
+				timeout: 5000
+			});
+			return;
+		}
+		if (!isPasswordConfirm) {
+			storeToast.push({
+				message: 'Les deux mot de passe doivent correspondre',
+				type: 'error',
+				timeout: 5000
+			});
+			return;
+		}
 		try {
 			isLoading = true;
 			const res = await signUp(
@@ -33,10 +68,11 @@
 				formData.password,
 				formData.firstName,
 				formData.lastName,
-				formData.username
+				formData.username,
+				formData.phoneNumber
 			);
 			isLoading = false;
-			if (res.statusCode === 200) {
+			if (res.statusCode === 201) {
 				storeToast.push({
 					message: 'Compte créé avec succès !',
 					type: 'confirmation',
@@ -65,14 +101,21 @@
 	<Loading />
 {/if}
 <form on:submit|preventDefault={handleSubmit}>
+	{#if error !== ''}
+		<p class="text-alert">
+			{error}
+		</p>
+	{/if}
 	<label for="email">Email</label>
-	<input type="text" name="email" bind:value={formData.email} />
+	<input type="email" name="email" bind:value={formData.email} />
 	<label for="firstName">Prénom</label>
 	<input type="text" name="firstName" bind:value={formData.firstName} />
 	<label for="lastName">Nom</label>
 	<input type="text" name="lastName" bind:value={formData.lastName} />
 	<label for="username">Pseudo</label>
 	<input type="text" name="username" bind:value={formData.username} />
+	<label for="phoneNumber">Numéro de téléphone</label>
+	<input type="tel" name="phoneNumber" bind:value={formData.phoneNumber} />
 	<label for="password">Mot de passe</label>
 	<input
 		type="password"
@@ -83,7 +126,7 @@
 	{#if !isPasswordGood}
 		<p class="text-alert">
 			Le mot de passe doit contenir un caractère spécial, une minuscule, une majuscule, un chiffre
-			et doit avoir 8 caractères
+			et doit avoir 12 caractères
 		</p>
 	{/if}
 	<label for="password">Confirmer le mot de passe</label>

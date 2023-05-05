@@ -46,14 +46,23 @@ export const signUp = async (
 	password: string,
 	firstName: string,
 	lastName: string,
-	username: string
+	username: string,
+	phoneNumber: string
 ) => {
-	const res = await fetchApi('/api/users', 'POST', fetch, '', {
+	const res = await fetchApi<ResponseAPI>('/api/users', 'POST', fetch, '', {
 		email,
 		password,
 		firstName,
 		lastName,
+		phoneNumber,
 		username
 	});
+	return res;
+};
+interface UsersResponse extends ResponseAPI {
+	users: Pick<User, 'firstName' | 'lastName' | 'id' | 'username'>[];
+}
+export const getAllUsers = async (token: string) => {
+	const res = await fetchApi<UsersResponse>('/api/users', 'GET', fetch, token);
 	return res;
 };

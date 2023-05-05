@@ -132,7 +132,7 @@
 	</div>
 	<div class="content" bind:this={scroll} on:scroll={() => (y = scroll.scrollTop)}>
 		{#each data.result.data as ressource}
-			<a href={`/ressources/${ressource.id}`}>
+			<a href={`/ressources/${ressource.id}`} data-sveltekit-preload-data="tap">
 				<div class="bloc">
 					<div class="title-ressources">
 						<p>{ressource.title}</p>

@@ -3,7 +3,7 @@
 	import Button from '$lib/Button.svelte';
 	import Loading from '$lib/Loading.svelte';
 	import { login } from '$lib/models/account';
-	import { user } from '$lib/store';
+	import { Role, user } from '$lib/store';
 	import { storeToast } from 'sveltle-component-notification';
 	let email = '';
 	let password = '';
@@ -14,6 +14,7 @@
 			const res = await login(email, password);
 			isLoading = false;
 			if (res.statusCode !== 200) {
+				console.log(res);
 				storeToast.push({
 					message: 'Une erreur est survenue, veuillez réessayer',
 					type: 'error',
@@ -28,7 +29,8 @@
 				user.set({
 					...res
 				});
-				goto('/');
+				if (res.role === Role.Administrator || res.role === Role.SuperAdministrator) goto('/admin');
+				else goto('/');
 			}
 		} catch (e: any) {
 			isLoading = false;

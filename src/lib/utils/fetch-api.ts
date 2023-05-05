@@ -11,7 +11,7 @@ export interface ResponseAPI {
 	error?: string;
 }
 export type Fetch = (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>;
-export const fetchApi = async <T extends ResponseAPI>(
+export const fetchApi = async <T>(
 	url: string,
 	method: HttpMethod,
 	fetch: Fetch,
@@ -22,18 +22,24 @@ export const fetchApi = async <T extends ResponseAPI>(
 	headers.append('Authorization', `Bearer ${token}`);
 	headers.append('Accept', 'application/json');
 	headers.append('Content-Type', 'application/json');
-	headers.append('Authorization', `Bearer ${token}`);
 	const options: Options = {
 		headers,
 		method
 	};
 	if (method !== 'GET') options.body = JSON.stringify(body);
 	const response = await fetch(PUBLIC_API_URL + url, options);
-	try {
-		const json: T = await response.json();
-		json.statusCode = response.status;
-		return json;
-	} catch {
+	if (response.ok) {
+		try {
+			const json = await response.json();
+			json.statusCode = response.status;
+			return json as T;
+		} catch {
+			const json: ResponseAPI = {
+				statusCode: response.status
+			};
+			return json as T;
+		}
+	} else {
 		const json: ResponseAPI = {
 			statusCode: response.status,
 			error: response.statusText

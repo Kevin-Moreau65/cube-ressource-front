@@ -4,7 +4,7 @@
 	import Header from '$lib/Header.svelte';
 	import Loading from '$lib/Loading.svelte';
 	import { Toast } from 'sveltle-component-notification';
-	import './styles.css';
+	import '../styles.css';
 </script>
 
 <div class="app">
@@ -16,7 +16,6 @@
 	<main>
 		<slot />
 	</main>
-
 	<Footer />
 </div>
 <Toast round verticalPosition="top" horizontalPosition="middle" width="clamp(300px, 75%, 500px)" />

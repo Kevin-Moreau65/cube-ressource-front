@@ -1,11 +1,12 @@
 <script>
 	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
+	import './styles.css';
 </script>
 
 {#if $page.status === 404}
 	<div class="error">
-		<img src="404.svg" alt="error" />
+		<img src="/404.svg" alt="error" />
 	</div>
 	<br />
 	<h2>Il n'y a rien ici...</h2>
@@ -13,7 +14,7 @@
 	<h3>...peut-être que la page que vous cherchez est introuvable ou n'a jamais existé.</h3>
 {:else}
 	<h1>Oups... Il y a eu un problème.</h1>
-	<h2>Désolé pour la gêne occasionnée, nous y travaillons dessus.</h2>
+	<h2>{$page.error?.message}</h2>
 {/if}
 
 <section>

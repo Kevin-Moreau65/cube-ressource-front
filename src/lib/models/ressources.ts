@@ -76,3 +76,27 @@ export const favRessource = async (idRessource: string, fetch: Fetch, token: str
 	const res = await fetchApi(`/api/Favoris/${idRessource}`, 'POST', fetch, token);
 	return res;
 };
+export const getSelfFavorite = async (fetch: Fetch, token: string) => {
+	const res = await fetchApi<RessourcesResponse>(`/api/resources/favoris`, 'GET', fetch, token);
+	return res;
+};
+export const getSelfHistory = async (fetch: Fetch, token: string) => {
+	const res = await fetchApi<RessourcesResponse>(`/api/resources/history`, 'GET', fetch, token);
+	return res;
+};
+export const deleteRessource = async (idRessource: string, fetch: Fetch, token: string) => {
+	const res = await fetchApi(`/api/resources/${idRessource}`, 'DELETE', fetch, token);
+	return res;
+};
+export const modifyRessource = async (
+	idRessource: string,
+	{ title, description }: Pick<Ressource, 'title' | 'description'>,
+	fetch: Fetch,
+	token: string
+) => {
+	const res = fetchApi<ResponseAPI>(`/api/resources/${idRessource}`, 'PUT', fetch, token, {
+		title,
+		description
+	});
+	return res;
+};
