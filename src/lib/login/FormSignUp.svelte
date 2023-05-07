@@ -13,6 +13,7 @@
 		lastName: '',
 		username: '',
 		password: '',
+		phoneNumber: '',
 		confirmPassword: ''
 	};
 	const checkPassword = (pass: string) => {
@@ -33,7 +34,8 @@
 				formData.password,
 				formData.firstName,
 				formData.lastName,
-				formData.username
+				formData.username,
+				formData.phoneNumber
 			);
 			isLoading = false;
 			if (res.statusCode === 200) {
@@ -73,6 +75,8 @@
 	<input type="text" name="lastName" bind:value={formData.lastName} />
 	<label for="username">Pseudo</label>
 	<input type="text" name="username" bind:value={formData.username} />
+	<label for="username">Telephone</label>
+	<input type="text" name="username" bind:value={formData.phoneNumber} />
 	<label for="password">Mot de passe</label>
 	<input
 		type="password"

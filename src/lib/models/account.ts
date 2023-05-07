@@ -16,7 +16,7 @@ export interface User {
 	firstName: string;
 	email: string;
 	// password: string;
-	telephone: string;
+	phoneNumber: string;
 	username: string;
 	dateCreation: Date;
 	// isDeleted: boolean;
@@ -46,14 +46,16 @@ export const signUp = async (
 	password: string,
 	firstName: string,
 	lastName: string,
-	username: string
+	username: string,
+	phoneNumber: string
 ) => {
 	const res = await fetchApi('/api/users', 'POST', fetch, '', {
 		email,
 		password,
 		firstName,
 		lastName,
-		username
+		username,
+		phoneNumber
 	});
 	return res;
 };
