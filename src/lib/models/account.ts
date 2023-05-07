@@ -57,5 +57,6 @@ export const signUp = async (
 		username,
 		phoneNumber
 	});
+	console.log(res);
 	return res;
 };
