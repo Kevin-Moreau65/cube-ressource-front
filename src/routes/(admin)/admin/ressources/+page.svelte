@@ -133,7 +133,7 @@
 	<div class="content" bind:this={scroll} on:scroll={() => (y = scroll.scrollTop)}>
 		{#each data.result.data as ressource}
 			<a href={`/admin/ressources/${ressource.id}`} data-sveltekit-preload-data="tap">
-				<div class="bloc">
+				<div class="bloc" class:deleted={ressource.isDeleted}>
 					<div class="title-ressources">
 						<p>{ressource.title}</p>
 						<p>
@@ -188,6 +188,9 @@
 		padding: 1rem;
 		width: 100%;
 		height: 100%;
+	}
+	.bloc.deleted {
+		border-color: red;
 	}
 
 	.title-ressources {

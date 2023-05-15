@@ -3,7 +3,7 @@ import { protect } from '$lib/utils/protect';
 import { error } from '@sveltejs/kit';
 import type { LayoutLoad } from './$types';
 import { browser } from '$app/environment';
-
+export const ssr = false;
 export const load = (async () => {
 	if (browser) {
 		if (!protect(Role.Administrator, Role.SuperAdministrator)) {

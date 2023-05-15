@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
 	import { downVoteRessource, favRessource, upVoteRessource } from '$lib/models/ressources';
-	import { storeTitle, user } from '$lib/store';
+	import { Role, storeTitle, user } from '$lib/store';
 	import convertDate from '$lib/utils/convert-date';
 	import { storeToast } from 'sveltle-component-notification';
 	import type { PageData } from './$types';
@@ -177,7 +177,11 @@
 		</div>
 		{#if data.ressource.comments.length > 0}
 			{#each data.ressource.comments as comment}
-				<div class="bloc" class:self={comment.userId === $user.id}>
+				<div
+					class="bloc"
+					class:self={comment.userId === $user.id}
+					class:moderator={comment.user.role === Role.Moderator}
+				>
 					<div class="title-commentaire">
 						<p>{comment.user.username}</p>
 						<p>{convertDate(comment.datePost)}</p>
@@ -187,6 +191,12 @@
 							{comment.content}
 						</p>
 					</div>
+					{#if $user.role === Role.Moderator}
+						<div class="actions">
+							<Button title="Supprimer" />
+							<Button title="Editer" />
+						</div>
+					{/if}
 				</div>
 			{/each}
 		{:else}
@@ -216,6 +226,9 @@
 		height: 35px;
 		display: flex;
 		flex-direction: row;
+	}
+	.bloc.moderator {
+		border: 2px solid var(--primary-color);
 	}
 	.favorite {
 		height: 35px;

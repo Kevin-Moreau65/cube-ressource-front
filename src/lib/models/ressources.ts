@@ -14,6 +14,7 @@ export interface Ressource {
 	type: number;
 	userId: number;
 	comments: Comment[];
+	isDeleted: boolean;
 	user: User;
 	voted?: {
 		id: number;

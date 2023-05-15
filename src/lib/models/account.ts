@@ -19,7 +19,7 @@ export interface User {
 	telephone: string;
 	username: string;
 	dateCreation: Date;
-	// isDeleted: boolean;
+	isDeleted: boolean;
 	isConfirm: boolean;
 	idZoneGeo: number;
 	zone_GEO: ZoneGEO;
@@ -64,5 +64,14 @@ interface UsersResponse extends ResponseAPI {
 }
 export const getAllUsers = async (token: string) => {
 	const res = await fetchApi<UsersResponse>('/api/users', 'GET', fetch, token);
+	return res;
+};
+type UserResponse = ResponseAPI & User;
+export const getUser = async (token: string, idUser: string) => {
+	const res = await fetchApi<UserResponse>(`/api/users/${idUser}`, 'GET', fetch, token);
+	return res;
+};
+export const suspendUser = async (token: string, idUser: string) => {
+	const res = await fetchApi<UserResponse>(`/api/users/${idUser}`, 'DELETE', fetch, token);
 	return res;
 };

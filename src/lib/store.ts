@@ -3,10 +3,10 @@ import { writable, type Writable } from 'svelte/store';
 import type { User } from './models/account';
 
 export enum Role {
-	User = 0,
-	Moderator = 1,
-	Administrator = 2,
-	SuperAdministrator = 3
+	User = 1,
+	Moderator = 2,
+	Administrator = 3,
+	SuperAdministrator = 4
 }
 export type PartialUser = Pick<
 	User,

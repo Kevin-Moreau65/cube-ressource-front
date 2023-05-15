@@ -12,7 +12,20 @@
 	const { ressource } = data;
 	const deleteRes = async () => {
 		const res = await deleteRessource($page.params.id, fetch, $user.token);
-		console.log(res);
+		if ((res as any).statusCode === 204) {
+			storeToast.push({
+				message: 'Ressource suspendu avec succès',
+				type: 'confirmation',
+				timeout: 5000
+			});
+			await invalidateAll();
+		} else {
+			storeToast.push({
+				message: (res as any).error || 'Une erreur est survenue',
+				type: 'error',
+				timeout: 5000
+			});
+		}
 	};
 	let title: string = data.ressource.title;
 	let description: string = data.ressource.description;
@@ -64,7 +77,11 @@
 				<Button title="Annuler" action={() => (modifyMode = false)} />
 			{/if}
 			<Button title="Editer" action={() => (modifyMode ? modifyRes() : (modifyMode = true))} />
-			<Button title="Suspendre" action={deleteRes} />
+			{#if data.ressource.isDeleted}
+				<Button title="Restaurer" action={deleteRes} />
+			{:else}
+				<Button title="Suspendre" action={deleteRes} />
+			{/if}
 		</div>
 	</div>
 </div>
