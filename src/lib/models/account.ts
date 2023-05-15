@@ -24,6 +24,7 @@ export interface User {
 	idZoneGeo: number;
 	zone_GEO: ZoneGEO;
 	role: Role;
+	password: string;
 }
 interface LoginResponse extends ResponseAPI {
 	email: string;
@@ -64,6 +65,13 @@ interface UsersResponse extends ResponseAPI {
 }
 export const getAllUsers = async (token: string) => {
 	const res = await fetchApi<UsersResponse>('/api/users', 'GET', fetch, token);
+	return res;
+};
+export const createUser = async (
+	token: string,
+	user: Pick<User, 'firstName' | 'lastName' | 'username' | 'email' | 'role' | 'password'>
+) => {
+	const res = await fetchApi<UserResponse>(`/api/users`, 'POST', fetch, token, user);
 	return res;
 };
 type UserResponse = ResponseAPI & User;

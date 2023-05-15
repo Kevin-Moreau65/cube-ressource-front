@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from '$lib/Button.svelte';
 	import type { User } from '$lib/models/account';
 	import type { PageData } from './$types';
 
@@ -8,6 +9,11 @@
 	};
 </script>
 
+<div class="actions">
+	<a href="/admin/users/add">
+		<Button title="Ajouter un compte" />
+	</a>
+</div>
 <div class="main">
 	{#each temp.users as user}
 		<a href={`/admin/users/${user.id}`} data-sveltekit-preload-data="tap">
@@ -21,6 +27,13 @@
 </div>
 
 <style>
+	.actions {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+	}
 	a {
 		all: unset;
 		cursor: pointer;
