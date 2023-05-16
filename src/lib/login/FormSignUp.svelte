@@ -14,8 +14,8 @@
 		lastName: '',
 		username: '',
 		password: '',
-		confirmPassword: '',
-		phoneNumber: ''
+		phoneNumber: '',
+		confirmPassword: ''
 	};
 	const checkPassword = (pass: string) => {
 		const reg = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{12,})');
@@ -114,8 +114,8 @@
 	<input type="text" name="lastName" bind:value={formData.lastName} />
 	<label for="username">Pseudo</label>
 	<input type="text" name="username" bind:value={formData.username} />
-	<label for="phoneNumber">Numéro de téléphone</label>
-	<input type="tel" name="phoneNumber" bind:value={formData.phoneNumber} />
+	<label for="username">Telephone</label>
+	<input type="text" name="username" bind:value={formData.phoneNumber} />
 	<label for="password">Mot de passe</label>
 	<input
 		type="password"

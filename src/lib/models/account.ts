@@ -16,7 +16,7 @@ export interface User {
 	firstName: string;
 	email: string;
 	// password: string;
-	telephone: string;
+	phoneNumber: string;
 	username: string;
 	dateCreation: Date;
 	isDeleted: boolean;
@@ -55,8 +55,8 @@ export const signUp = async (
 		password,
 		firstName,
 		lastName,
-		phoneNumber,
-		username
+		username,
+		phoneNumber
 	});
 	return res;
 };
