@@ -8,21 +8,22 @@
 		lastName: '',
 		email: '',
 		username: '',
+		phoneNumber: '',
 		password: '',
 		role: Role.User
 	};
 	const handleSubmit = async () => {
-		const res = await createUser($user.token, data);
-		if (res.statusCode === 201) {
+		try {
+			const res = await createUser($user.token, data);
 			storeToast.push({
 				message: 'Utilisateur créé avec succès !',
 				timeout: 5000,
 				type: 'confirmation'
 			});
 			await goto('/admin/users');
-		} else {
+		} catch (e: any) {
 			storeToast.push({
-				message: res.error || 'Une erreur est survenue',
+				message: e.message || 'Une erreur est survenue',
 				timeout: 5000,
 				type: 'error'
 			});
@@ -48,6 +49,10 @@
 	<label for="username">
 		Pseudo
 		<input type="text" name="username" bind:value={data.username} />
+	</label>
+	<label for="username">
+		Numéro de téléphone
+		<input type="text" name="phoneNumber" bind:value={data.phoneNumber} />
 	</label>
 	<label for="password">
 		Mot de passe

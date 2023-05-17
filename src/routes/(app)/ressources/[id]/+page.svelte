@@ -10,70 +10,67 @@
 	import { postComment, type Comment } from '$lib/models/comment';
 	import Loading from '$lib/Loading.svelte';
 	storeTitle.set('Ressource');
+	let commentValue = '';
+	let isLoading = false;
 	export let data: PageData;
-	const { ressource } = data;
 	const vote = async (isUpVote: boolean) => {
-		const res = isUpVote
-			? await upVoteRessource($page.params.id, fetch, $user.token)
-			: await downVoteRessource($page.params.id, fetch, $user.token);
-		if (res.statusCode !== 204) {
+		try {
+			const res = isUpVote
+				? await upVoteRessource($page.params.id, fetch, $user.token)
+				: await downVoteRessource($page.params.id, fetch, $user.token);
 			storeToast.push({
-				message: res.error || 'Un erreur est survenue, veuillez réessayer plus tard.',
+				message: 'Ressource voté avec succès !',
+				type: 'confirmation',
+				timeout: 5000
+			});
+			invalidateAll();
+		} catch (e: any) {
+			storeToast.push({
+				message: e.message || 'Un erreur est survenue, veuillez réessayer plus tard.',
 				type: 'error',
 				timeout: 5000
 			});
-			return;
 		}
-		storeToast.push({
-			message: 'Ressource voté avec succès !',
-			type: 'confirmation',
-			timeout: 5000
-		});
-		invalidateAll();
 	};
 
 	const favorite = async () => {
-		const res = await favRessource($page.params.id, fetch, $user.token);
-		if (res.statusCode !== 200) {
+		try {
+			await favRessource($page.params.id, fetch, $user.token);
 			storeToast.push({
-				message: res.error || 'Un erreur est survenue, veuillez réessayer plus tard.',
+				message: 'Ressource ajoutée en favorie avec succès !',
+				type: 'confirmation',
+				timeout: 5000
+			});
+			invalidateAll();
+		} catch (e: any) {
+			storeToast.push({
+				message: e.message || 'Un erreur est survenue, veuillez réessayer plus tard.',
 				type: 'error',
 				timeout: 5000
 			});
-			return;
 		}
-		storeToast.push({
-			message: 'Ressource ajoutée en favorie avec succès !',
-			type: 'confirmation',
-			timeout: 5000
-		});
-		invalidateAll();
 	};
-
-	let commentValue = '';
-	let isLoading = false;
-
 	const addComment = async () => {
-		isLoading = true;
-		const res = await postComment($user.token, {
-			content: commentValue,
-			resourceId: parseInt($page.params.id)
-		});
-		isLoading = false;
-		if (res.statusCode === 200) {
+		try {
+			isLoading = true;
+			await postComment($user.token, {
+				content: commentValue,
+				resourceId: parseInt($page.params.id)
+			});
+			isLoading = false;
 			storeToast.push({
 				type: 'confirmation',
 				message: 'Commentaire poster avec succès',
 				timeout: 5000
 			});
-		} else {
+			invalidateAll();
+		} catch (e: any) {
 			storeToast.push({
+				message: e.message || 'Un erreur est survenue, veuillez réessayer plus tard.',
 				type: 'error',
-				message: 'Une erreur est survenue',
 				timeout: 5000
 			});
 		}
-		invalidateAll();
 	};
 </script>
 
@@ -83,15 +80,15 @@
 <div class="main">
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 	<div class="content" tabindex="0">
-		<h1 class="title">{ressource.title}</h1>
+		<h1 class="title">{data.data.title}</h1>
 		<div class="bloc">
 			<div class="user-date">
-				<p>{ressource.user.username}</p>
-				<p>{convertDate(ressource.creationDate)}</p>
+				<p>{data.data.user.username}</p>
+				<p>{convertDate(data.data.creationDate)}</p>
 			</div>
 			<div class="description">
 				<p>
-					{ressource.description}
+					{data.data.description}
 				</p>
 			</div>
 			<div class="actions" style={$user.id === 0 ? 'display: none' : ''}>
@@ -100,7 +97,7 @@
 						class="svg-wrapper"
 						on:click={() => vote(true)}
 						on:keypress={() => vote(true)}
-						class:upvoted={data.ressource.voted?.type === 'upvote'}
+						class:upvoted={data.data.voted?.type === 'upvote'}
 					>
 						<svg
 							fill="#000000"
@@ -117,7 +114,7 @@
 						class="svg-wrapper"
 						on:click={() => vote(false)}
 						on:keypress={() => vote(false)}
-						class:downvoted={data.ressource.voted?.type === 'downvote'}
+						class:downvoted={data.data.voted?.type === 'downvote'}
 					>
 						<svg
 							fill="#000000"
@@ -136,7 +133,7 @@
 						class="svg-wrapper"
 						on:click={favorite}
 						on:keypress={() => favorite}
-						class:isFav={data.ressource.favoris !== null}
+						class:isFav={data.data.favoris !== null}
 					>
 						<svg
 							fill="#000000"
@@ -175,8 +172,8 @@
 				/>
 			{/if}
 		</div>
-		{#if data.ressource.comments.length > 0}
-			{#each data.ressource.comments as comment}
+		{#if data.data.comments.length > 0}
+			{#each data.data.comments as comment}
 				<div
 					class="bloc"
 					class:self={comment.userId === $user.id}
@@ -315,11 +312,6 @@
 		/* Chrome, Firefox, Opera, Safari 10.1+ */
 		color: var(--accent-color);
 		opacity: 1; /* Firefox */
-	}
-
-	.fichier img {
-		width: 40px;
-		height: 40px;
 	}
 	.upvoted svg {
 		fill: green;

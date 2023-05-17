@@ -9,10 +9,10 @@
 
 <div class="main">
 	<div class="content">
-		{#if !data.result || data.result.length === 0}
+		{#if !data.data || data.data.length === 0}
 			<p>Aucune ressource mise en favoris</p>
 		{:else}
-			{#each data.result as ressource}
+			{#each data.data as ressource}
 				<a href={`/ressources/${ressource.id}`} data-sveltekit-preload-data="tap">
 					<div class="bloc">
 						<div class="title-ressources">

@@ -4,9 +4,6 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const temp = data as unknown as {
-		users: User[];
-	};
 </script>
 
 <div class="actions">
@@ -15,7 +12,7 @@
 	</a>
 </div>
 <div class="main">
-	{#each temp.users as user}
+	{#each data.users as user}
 		<a href={`/admin/users/${user.id}`} data-sveltekit-preload-data="tap">
 			<div class="bloc" class:deleted={user.isDeleted}>
 				{user.firstName}

@@ -9,18 +9,18 @@
 
 	export let data: PageData;
 	const deleteuser = async () => {
-		const res = await suspendUser($user.token, $page.params.id);
-		if (res.statusCode === 200) {
+		try {
+			const res = await suspendUser($user.token, $page.params.id);
 			storeToast.push({
 				type: 'confirmation',
 				message: 'Utilisateur ' + (data.isDeleted ? 'restauré' : 'suspendu'),
 				timeout: 5000
 			});
 			await invalidateAll();
-		} else {
+		} catch (e: any) {
 			storeToast.push({
 				type: 'error',
-				message: res.error || 'Une erreur est survenue',
+				message: e.message || 'Une erreur est survenue',
 				timeout: 5000
 			});
 		}

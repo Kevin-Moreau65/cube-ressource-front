@@ -3,7 +3,7 @@ import { get } from 'svelte/store';
 import type { LayoutLoad } from './$types';
 import { user } from '$lib/store';
 import { error } from '@sveltejs/kit';
-
+export const ssr = false;
 export const load = (async () => {
 	if (browser) {
 		const userStore = get(user);

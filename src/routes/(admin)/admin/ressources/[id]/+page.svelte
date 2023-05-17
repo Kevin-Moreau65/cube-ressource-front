@@ -11,17 +11,19 @@
 	export let data: PageData;
 	const { ressource } = data;
 	const deleteRes = async () => {
-		const res = await deleteRessource($page.params.id, fetch, $user.token);
-		if ((res as any).statusCode === 204) {
+		try {
+			const res = await deleteRessource($page.params.id, fetch, $user.token);
+			if ((res as any).statusCode === 204) {
+				storeToast.push({
+					message: 'Ressource suspendu avec succès',
+					type: 'confirmation',
+					timeout: 5000
+				});
+				await invalidateAll();
+			}
+		} catch (e: any) {
 			storeToast.push({
-				message: 'Ressource suspendu avec succès',
-				type: 'confirmation',
-				timeout: 5000
-			});
-			await invalidateAll();
-		} else {
-			storeToast.push({
-				message: (res as any).error || 'Une erreur est survenue',
+				message: e.message || 'Une erreur est survenue',
 				type: 'error',
 				timeout: 5000
 			});
@@ -31,17 +33,22 @@
 	let description: string = data.ressource.description;
 	let modifyMode = false;
 	const modifyRes = async () => {
-		const res = await modifyRessource($page.params.id, { title, description }, fetch, $user.token);
-		if (res.statusCode === 200) {
+		try {
+			const res = await modifyRessource(
+				$page.params.id,
+				{ title, description },
+				fetch,
+				$user.token
+			);
 			storeToast.push({
 				message: 'Ressource modifié avec succès',
 				type: 'confirmation',
 				timeout: 5000
 			});
 			await invalidateAll();
-		} else {
+		} catch (e: any) {
 			storeToast.push({
-				message: res.error || 'Une erreur est survenue',
+				message: e.message || 'Une erreur est survenue',
 				type: 'error',
 				timeout: 5000
 			});

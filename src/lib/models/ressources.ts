@@ -1,4 +1,4 @@
-import { fetchApi, type Fetch, type ResponseAPI } from '$lib/utils/fetch-api';
+import { fetchApi, type Fetch } from '$lib/utils/fetch-api';
 import type { Pagination } from './pagination';
 import type { Comment } from './comment';
 import type { User } from './account';
@@ -35,10 +35,10 @@ export enum TriType {
 	Popularite
 }
 
-interface RessourcesResponse extends ResponseAPI, Pagination {
+interface RessourcesResponse extends Pagination {
 	data: Ressource[];
 }
-interface RessourceResponse extends ResponseAPI {
+interface RessourceResponse {
 	data: Ressource;
 }
 
@@ -78,15 +78,25 @@ export const favRessource = async (idRessource: string, fetch: Fetch, token: str
 	return res;
 };
 export const getSelfFavorite = async (fetch: Fetch, token: string) => {
-	const res = await fetchApi<RessourcesResponse>(`/api/resources/favoris`, 'GET', fetch, token);
+	const res = await fetchApi<RessourcesResponse>(
+		`/api/Favoris/getallfavorisbyiduser`,
+		'GET',
+		fetch,
+		token
+	);
 	return res;
 };
 export const getSelfHistory = async (fetch: Fetch, token: string) => {
-	const res = await fetchApi<RessourcesResponse>(`/api/resources/history`, 'GET', fetch, token);
+	const res = await fetchApi<RessourcesResponse>(
+		`/api/Consultations/getallconsultationsbyiduser`,
+		'GET',
+		fetch,
+		token
+	);
 	return res;
 };
 export const deleteRessource = async (idRessource: string, fetch: Fetch, token: string) => {
-	const res = await fetchApi(`/api/resources/${idRessource}`, 'DELETE', fetch, token);
+	const res = await fetchApi<Ressource>(`/api/resources/${idRessource}`, 'DELETE', fetch, token);
 	return res;
 };
 export const modifyRessource = async (
@@ -95,7 +105,7 @@ export const modifyRessource = async (
 	fetch: Fetch,
 	token: string
 ) => {
-	const res = fetchApi<ResponseAPI>(`/api/resources/${idRessource}`, 'PUT', fetch, token, {
+	const res = fetchApi<Ressource>(`/api/resources/${idRessource}`, 'PUT', fetch, token, {
 		title,
 		description
 	});

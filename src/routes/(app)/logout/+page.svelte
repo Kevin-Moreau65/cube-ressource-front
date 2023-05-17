@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
-	import { user } from '$lib/store';
+	import { Role, user } from '$lib/store';
 	import { onMount } from 'svelte';
 	onMount(() => {
 		user.set({
@@ -9,7 +9,8 @@
 			lastName: '',
 			username: '',
 			email: '',
-			token: ''
+			token: '',
+			role: Role.User
 		});
 	});
 </script>

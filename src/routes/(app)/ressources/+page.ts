@@ -1,4 +1,5 @@
 import { getRessources } from '$lib/models/ressources';
+import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
 export const load = (async ({ url, fetch }) => {
@@ -8,8 +9,12 @@ export const load = (async ({ url, fetch }) => {
 	if (url.searchParams.get('PageSize')) searchParam.pageSize = url.searchParams.get('PageSize');
 	if (url.searchParams.get('triType')) searchParam.triType = url.searchParams.get('triType');
 	if (url.searchParams.get('search')) searchParam.search = url.searchParams.get('search');
-	const result = await getRessources(searchParam, fetch);
-	return {
-		result
-	};
+	try {
+		const result = await getRessources(searchParam, fetch);
+		return {
+			result
+		};
+	} catch (e: any) {
+		throw error(e.statusCode || 500, e.message || 'Une erreur est survenue');
+	}
 }) satisfies PageLoad;

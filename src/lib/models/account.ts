@@ -1,5 +1,5 @@
 import type { Role } from '$lib/store';
-import { fetchApi, type ResponseAPI } from '$lib/utils/fetch-api';
+import { fetchApi } from '$lib/utils/fetch-api';
 export interface ZoneGEO {
 	id: number;
 	code: number;
@@ -26,7 +26,7 @@ export interface User {
 	role: Role;
 	password: string;
 }
-interface LoginResponse extends ResponseAPI {
+interface LoginResponse {
 	email: string;
 	firstName: string;
 	lastName: string;
@@ -50,7 +50,7 @@ export const signUp = async (
 	username: string,
 	phoneNumber: string
 ) => {
-	const res = await fetchApi<ResponseAPI>('/api/users', 'POST', fetch, '', {
+	const res = await fetchApi<User>('/api/users', 'POST', fetch, '', {
 		email,
 		password,
 		firstName,
@@ -60,26 +60,26 @@ export const signUp = async (
 	});
 	return res;
 };
-interface UsersResponse extends ResponseAPI {
-	users: Pick<User, 'firstName' | 'lastName' | 'id' | 'username'>[];
-}
 export const getAllUsers = async (token: string) => {
-	const res = await fetchApi<UsersResponse>('/api/users', 'GET', fetch, token);
+	const res = await fetchApi<{ [x in number]: User }>('/api/users', 'GET', fetch, token);
+	console.log(res);
 	return res;
 };
 export const createUser = async (
 	token: string,
-	user: Pick<User, 'firstName' | 'lastName' | 'username' | 'email' | 'role' | 'password'>
+	user: Pick<
+		User,
+		'firstName' | 'lastName' | 'username' | 'email' | 'role' | 'password' | 'phoneNumber'
+	>
 ) => {
-	const res = await fetchApi<UserResponse>(`/api/users`, 'POST', fetch, token, user);
+	const res = await fetchApi<User>(`/api/users`, 'POST', fetch, token, user);
 	return res;
 };
-type UserResponse = ResponseAPI & User;
 export const getUser = async (token: string, idUser: string) => {
-	const res = await fetchApi<UserResponse>(`/api/users/${idUser}`, 'GET', fetch, token);
+	const res = await fetchApi<User>(`/api/users/${idUser}`, 'GET', fetch, token);
 	return res;
 };
 export const suspendUser = async (token: string, idUser: string) => {
-	const res = await fetchApi<UserResponse>(`/api/users/${idUser}`, 'DELETE', fetch, token);
+	const res = await fetchApi<User>(`/api/users/${idUser}`, 'DELETE', fetch, token);
 	return res;
 };

@@ -6,9 +6,9 @@ type Options = {
 	headers: Headers;
 	body?: string;
 };
-export interface ResponseAPI {
-	statusCode: number;
-	error?: string;
+export interface ResponseError {
+	errors?: Array<string[]>;
+	message: string;
 }
 export type Fetch = (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>;
 export const fetchApi = async <T>(
@@ -29,21 +29,37 @@ export const fetchApi = async <T>(
 	if (method !== 'GET') options.body = JSON.stringify(body);
 	const response = await fetch(PUBLIC_API_URL + url, options);
 	if (response.ok) {
+		if (response.status === 204) {
+			return {} as T;
+		}
 		try {
-			const json = await response.json();
-			json.statusCode = response.status;
-			return json as T;
-		} catch {
-			const json: ResponseAPI = {
+			if (response.body) {
+				const json: T = await response.json();
+				return { ...json };
+			} else {
+				return {} as T;
+			}
+		} catch (e: any) {
+			throw {
+				message: e.message || response.statusText,
 				statusCode: response.status
 			};
-			return json as T;
 		}
 	} else {
-		const json: ResponseAPI = {
-			statusCode: response.status,
-			error: response.statusText
-		};
-		return json as T;
+		try {
+			const json: ResponseError = await response.json();
+			if (!json.errors || json.errors === null) {
+				throw { message: json.message, statusCode: response.status };
+			}
+			throw {
+				message: json.errors[0][0],
+				statusCode: response.status
+			};
+		} catch (e: any) {
+			throw {
+				message: e.message || response.statusText,
+				statusCode: response.status
+			};
+		}
 	}
 };

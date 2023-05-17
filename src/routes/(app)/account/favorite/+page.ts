@@ -1,14 +1,16 @@
-import { browser } from '$app/environment';
 import { getSelfFavorite } from '$lib/models/ressources';
 import { user } from '$lib/store';
 import { get } from 'svelte/store';
 import type { PageLoad } from './$types';
+import { error } from '@sveltejs/kit';
 
 export const load = (async ({ fetch }) => {
-	if (browser) {
+	try {
 		const res = await getSelfFavorite(fetch, get(user).token);
 		return {
-			result: res
+			...res
 		};
+	} catch (e: any) {
+		throw error(e.statusCode || 500, e.message || 'Une erreur est survenue');
 	}
 }) satisfies PageLoad;

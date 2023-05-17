@@ -13,25 +13,16 @@
 			isLoading = true;
 			const res = await login(email, password);
 			isLoading = false;
-			if (res.statusCode !== 200) {
-				console.log(res);
-				storeToast.push({
-					message: 'Une erreur est survenue, veuillez réessayer',
-					type: 'error',
-					timeout: 5000
-				});
-			} else {
-				storeToast.push({
-					message: `Bienvenue ${res.firstName} ${res.lastName} !`,
-					type: 'confirmation',
-					timeout: 5000
-				});
-				user.set({
-					...res
-				});
-				if (res.role === Role.Administrator || res.role === Role.SuperAdministrator) goto('/admin');
-				else goto('/');
-			}
+			storeToast.push({
+				message: `Bienvenue ${res.firstName} ${res.lastName} !`,
+				type: 'confirmation',
+				timeout: 5000
+			});
+			user.set({
+				...res
+			});
+			if (res.role === Role.Administrator || res.role === Role.SuperAdministrator) goto('/admin');
+			else goto('/');
 		} catch (e: any) {
 			isLoading = false;
 			storeToast.push({

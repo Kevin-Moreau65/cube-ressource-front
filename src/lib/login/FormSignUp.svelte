@@ -72,20 +72,12 @@
 				formData.phoneNumber
 			);
 			isLoading = false;
-			if (res.statusCode === 201) {
-				storeToast.push({
-					message: 'Compte créé avec succès !',
-					type: 'confirmation',
-					timeout: 5000
-				});
-				toLogin = true;
-			} else {
-				storeToast.push({
-					message: res.error || 'Une erreur est survenue, veuillez réessayer',
-					type: 'error',
-					timeout: 5000
-				});
-			}
+			storeToast.push({
+				message: 'Compte créé avec succès !',
+				type: 'confirmation',
+				timeout: 5000
+			});
+			toLogin = true;
 		} catch (e: any) {
 			isLoading = false;
 			storeToast.push({

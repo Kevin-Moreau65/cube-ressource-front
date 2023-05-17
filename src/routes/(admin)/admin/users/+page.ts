@@ -5,11 +5,13 @@ import { user } from '$lib/store';
 import { error } from '@sveltejs/kit';
 
 export const load = (async () => {
-	const users = await getAllUsers(get(user).token);
-	if (users.statusCode !== 200) {
-		throw error(users.statusCode);
+	try {
+		const res = await getAllUsers(get(user).token);
+		const users = Object.values(res);
+		return {
+			users: users
+		};
+	} catch (e: any) {
+		throw error(e.statusCode || 500, e.message || 'Une erreur est survenue');
 	}
-	return {
-		users
-	};
 }) satisfies PageLoad;
