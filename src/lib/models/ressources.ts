@@ -111,3 +111,15 @@ export const modifyRessource = async (
 	});
 	return res;
 };
+export const createRessource = async (
+	fetch: Fetch,
+	token: string,
+	title: string,
+	description: string
+) => {
+	const res = await fetchApi(`/api/Resources`, 'POST', fetch, token, {
+		title,
+		description
+	});
+	return res;
+};
