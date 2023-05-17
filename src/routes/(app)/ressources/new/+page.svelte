@@ -7,35 +7,31 @@
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 	import Loading from '$lib/Loading.svelte';
-	storeTitle.set('Ressource');
-	export let data: PageData;
+	storeTitle.set('Créer une Ressource');
 
 	let isLoading = false;
 	let title = '';
 	let description = '';
 
 	const addResource = async () => {
-		isLoading = true;
-		const res = await createRessource(fetch, $user.token, title, description);
-		isLoading = false;
-		console.log(res);
-		console.log(title);
-		if (res.statusCode === 201) {
+		try {
+			isLoading = true;
+			const res = await createRessource(fetch, $user.token, title, description);
+			isLoading = false;
 			storeToast.push({
 				type: 'confirmation',
 				message: 'Ressource créée avec succès',
 				timeout: 5000
 			});
 			goto('/ressources');
-		} else {
+		} catch (e: any) {
+			isLoading = false;
 			storeToast.push({
 				type: 'error',
-				message: 'Une erreur est survenue',
+				message: e.message || 'Une erreur est survenue',
 				timeout: 5000
 			});
 		}
-		console.log(res);
-		console.log(title);
 	};
 </script>
 
