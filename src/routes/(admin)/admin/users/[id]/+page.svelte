@@ -8,7 +8,7 @@
 	import { invalidateAll } from '$app/navigation';
 
 	export let data: PageData;
-	const deleteuser = async () => {
+	const deleteUser = async () => {
 		try {
 			const res = await suspendUser($user.token, $page.params.id);
 			storeToast.push({
@@ -27,7 +27,16 @@
 	};
 </script>
 
-<h1>{data.firstName}</h1>
-<div class="actions">
-	<Button title={data.isDeleted ? 'Restaurer' : 'Suspendre'} action={deleteuser} />
+<div class="main">
+	<p>Prénom : {data.firstName}</p>
+	<p>Nom : {data.lastName}</p>
+	<p>Pseudo : {data.username}</p>
+	<p>Téléphone : {data.phoneNumber}</p>
+	<div class="actions">
+		{#if !data.isDeleted}
+			<Button title="Suspendre" action={deleteUser} />
+		{:else}
+			<Button title="Restaurer" action={deleteUser} />
+		{/if}
+	</div>
 </div>

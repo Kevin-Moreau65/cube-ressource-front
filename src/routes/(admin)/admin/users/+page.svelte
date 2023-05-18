@@ -1,15 +1,18 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
 	import type { User } from '$lib/models/account';
+	import { Role, user } from '$lib/store';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 </script>
 
 <div class="actions">
-	<a href="/admin/users/add">
-		<Button title="Ajouter un compte" />
-	</a>
+	{#if $user.role === Role.SuperAdministrator}
+		<a href="/admin/users/add">
+			<Button title="Ajouter un compte" />
+		</a>
+	{/if}
 </div>
 <div class="main">
 	{#each data.users as user}

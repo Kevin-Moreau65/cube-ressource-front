@@ -2,7 +2,13 @@
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
-	import { downVoteRessource, favRessource, upVoteRessource } from '$lib/models/ressources';
+	import {
+		cancelFavRessource,
+		cancelVoteRessource,
+		downVoteRessource,
+		favRessource,
+		upVoteRessource
+	} from '$lib/models/ressources';
 	import { Role, storeTitle, user } from '$lib/store';
 	import convertDate from '$lib/utils/convert-date';
 	import { storeToast } from 'sveltle-component-notification';
@@ -32,12 +38,45 @@
 			});
 		}
 	};
-
+	const cancelVote = async () => {
+		try {
+			const res = await cancelVoteRessource($page.params.id, fetch, $user.token);
+			storeToast.push({
+				message: 'Vote annulé avec succès !',
+				type: 'confirmation',
+				timeout: 5000
+			});
+			invalidateAll();
+		} catch (e: any) {
+			storeToast.push({
+				message: e.message || 'Un erreur est survenue, veuillez réessayer plus tard.',
+				type: 'error',
+				timeout: 5000
+			});
+		}
+	};
 	const favorite = async () => {
 		try {
 			await favRessource($page.params.id, fetch, $user.token);
 			storeToast.push({
 				message: 'Ressource ajoutée en favorie avec succès !',
+				type: 'confirmation',
+				timeout: 5000
+			});
+			invalidateAll();
+		} catch (e: any) {
+			storeToast.push({
+				message: e.message || 'Un erreur est survenue, veuillez réessayer plus tard.',
+				type: 'error',
+				timeout: 5000
+			});
+		}
+	};
+	const cancelFavorite = async () => {
+		try {
+			await cancelFavRessource($page.params.id, fetch, $user.token);
+			storeToast.push({
+				message: 'Ressource supprimé de favorie avec succès !',
 				type: 'confirmation',
 				timeout: 5000
 			});
@@ -95,7 +134,7 @@
 				<div class="vote">
 					<div
 						class="svg-wrapper"
-						on:click={() => vote(true)}
+						on:click={() => (data.data.voted?.type === 'upvote' ? cancelVote() : vote(true))}
 						on:keypress={() => vote(true)}
 						class:upvoted={data.data.voted?.type === 'upvote'}
 					>
@@ -112,7 +151,7 @@
 					</div>
 					<div
 						class="svg-wrapper"
-						on:click={() => vote(false)}
+						on:click={() => (data.data.voted?.type === 'downvote' ? cancelVote() : vote(false))}
 						on:keypress={() => vote(false)}
 						class:downvoted={data.data.voted?.type === 'downvote'}
 					>
@@ -131,7 +170,7 @@
 				<div class="favorite">
 					<div
 						class="svg-wrapper"
-						on:click={favorite}
+						on:click={data.data.favoris !== null ? cancelFavorite : favorite}
 						on:keypress={() => favorite}
 						class:isFav={data.data.favoris !== null}
 					>

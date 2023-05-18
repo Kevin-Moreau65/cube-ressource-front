@@ -62,7 +62,6 @@ export const signUp = async (
 };
 export const getAllUsers = async (token: string) => {
 	const res = await fetchApi<{ [x in number]: User }>('/api/users', 'GET', fetch, token);
-	console.log(res);
 	return res;
 };
 export const createUser = async (
@@ -72,7 +71,7 @@ export const createUser = async (
 		'firstName' | 'lastName' | 'username' | 'email' | 'role' | 'password' | 'phoneNumber'
 	>
 ) => {
-	const res = await fetchApi<User>(`/api/users`, 'POST', fetch, token, user);
+	const res = await fetchApi<User>(`/api/users/admin/create`, 'POST', fetch, token, user);
 	return res;
 };
 export const getUser = async (token: string, idUser: string) => {

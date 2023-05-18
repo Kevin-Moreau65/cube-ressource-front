@@ -69,12 +69,20 @@ export const upVoteRessource = async (idRessource: string, fetch: Fetch, token: 
 	const res = await fetchApi(`/api/resources/${idRessource}/upvote`, 'PUT', fetch, token);
 	return res;
 };
+export const cancelVoteRessource = async (idRessource: string, fetch: Fetch, token: string) => {
+	const res = await fetchApi(`/api/resources/${idRessource}/upvote`, 'PUT', fetch, token);
+	return res;
+};
 export const downVoteRessource = async (idRessource: string, fetch: Fetch, token: string) => {
 	const res = await fetchApi(`/api/resources/${idRessource}/downvote`, 'PUT', fetch, token);
 	return res;
 };
 export const favRessource = async (idRessource: string, fetch: Fetch, token: string) => {
 	const res = await fetchApi(`/api/Favoris/${idRessource}`, 'POST', fetch, token);
+	return res;
+};
+export const cancelFavRessource = async (idRessource: string, fetch: Fetch, token: string) => {
+	const res = await fetchApi(`/api/Favoris/cancel/${idRessource}`, 'DELETE', fetch, token);
 	return res;
 };
 export const getSelfFavorite = async (fetch: Fetch, token: string) => {

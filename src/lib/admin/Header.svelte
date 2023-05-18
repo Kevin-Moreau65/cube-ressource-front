@@ -8,6 +8,7 @@
 		<li><a href="/admin/ressources">Ressources</a></li>
 		<li><a href="/admin/users">Comptes</a></li>
 		<li><a href="/admin/categories">Catégories</a></li>
+		<li><a href="/admin/stats">Statistiques</a></li>
 		<li style="float:right"><a class="active" href="/account">{$user.firstName}</a></li>
 	</ul>
 </div>

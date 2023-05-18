@@ -13,14 +13,12 @@
 	const deleteRes = async () => {
 		try {
 			const res = await deleteRessource($page.params.id, fetch, $user.token);
-			if ((res as any).statusCode === 204) {
-				storeToast.push({
-					message: 'Ressource suspendu avec succès',
-					type: 'confirmation',
-					timeout: 5000
-				});
-				await invalidateAll();
-			}
+			storeToast.push({
+				message: 'Ressource suspendu avec succès',
+				type: 'confirmation',
+				timeout: 5000
+			});
+			await invalidateAll();
 		} catch (e: any) {
 			storeToast.push({
 				message: e.message || 'Une erreur est survenue',
