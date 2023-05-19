@@ -9,24 +9,24 @@
 
 <div class="main">
 	<div class="content">
-		{#if !data.data || data.data.length === 0}
+		{#if !data || Object.values(data).length === 0}
 			<p>Aucune ressource mise en favoris</p>
 		{:else}
-			{#each data.data as ressource}
-				<a href={`/ressources/${ressource.id}`} data-sveltekit-preload-data="tap">
+			{#each Object.values(data) as favorite}
+				<a href={`/ressources/${favorite.resource.id}`} data-sveltekit-preload-data="tap">
 					<div class="bloc">
 						<div class="title-ressources">
-							<p>{ressource.title}</p>
+							<p>{favorite.resource.title}</p>
 							<p>
-								{convertDate(ressource.creationDate)}
+								{convertDate(favorite.resource.creationDate)}
 							</p>
 						</div>
 						<div class="description">
 							<p>
-								{#if ressource.description.length > 203}
-									{ressource.description.slice(0, 200)}...
+								{#if favorite.resource.description.length > 203}
+									{favorite.resource.description.slice(0, 200)}...
 								{:else}
-									{ressource.description}
+									{favorite.resource.description}
 								{/if}
 							</p>
 						</div>

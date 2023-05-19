@@ -1,22 +1,22 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
 	import Button from '$lib/Button.svelte';
-	import { createRessource } from '$lib/models/ressources';
+	import { createRessource, getCategories, type Categorie } from '$lib/models/ressources';
 	import { storeTitle, user } from '$lib/store';
 	import { storeToast } from 'sveltle-component-notification';
-	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 	import Loading from '$lib/Loading.svelte';
+	import type { PageData } from './$types';
 	storeTitle.set('Créer une Ressource');
-
+	export let data: PageData;
 	let isLoading = false;
 	let title = '';
 	let description = '';
-
+	let categorieId: number;
 	const addResource = async () => {
 		try {
 			isLoading = true;
-			const res = await createRessource(fetch, $user.token, title, description);
+			const res = await createRessource(fetch, $user.token, title, description, categorieId);
 			isLoading = false;
 			storeToast.push({
 				type: 'confirmation',
@@ -53,11 +53,10 @@
 			</div>
 			<div class="ressource-categorie">
 				<p>Catégorie :</p>
-				<select>
-					<option> Texte </option>
-					<option> Document </option>
-					<option> Lien </option>
-					<option> Photo </option>
+				<select bind:value={categorieId}>
+					{#each Object.values(data) as categorie}
+						<option value={categorie.id}>{categorie.name}</option>
+					{/each}
 				</select>
 			</div>
 			<div class="ressource-files">

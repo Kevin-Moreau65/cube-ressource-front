@@ -26,8 +26,8 @@ export const fetchApi = async <T>(
 		headers,
 		method
 	};
-	if (method !== 'GET') options.body = JSON.stringify(body);
-	const response = await fetch(PUBLIC_API_URL + url, options);
+	if (method !== 'GET' && body !== undefined) options.body = JSON.stringify(body);
+	const response = await fetch(PUBLIC_API_URL + url, { ...options });
 	if (response.ok) {
 		if (response.status === 204) {
 			return {} as T;

@@ -16,6 +16,7 @@ export interface Ressource {
 	comments: Comment[];
 	isDeleted: boolean;
 	user: User;
+	categorie: Categorie;
 	voted?: {
 		id: number;
 		type: 'upvote' | 'downvote';
@@ -27,7 +28,10 @@ export interface Ressource {
 		userId: number;
 	};
 }
-
+export interface Categorie {
+	id: number;
+	name: string;
+}
 export enum TriType {
 	DateDesc,
 	DateAsc,
@@ -41,7 +45,15 @@ interface RessourcesResponse extends Pagination {
 interface RessourceResponse {
 	data: Ressource;
 }
-
+interface History {
+	id: number;
+	date: Date;
+	resource: Ressource;
+}
+interface Favorite {
+	id: number;
+	resource: Ressource;
+}
 export const getRessources = async (
 	{
 		pageNumber,
@@ -70,7 +82,7 @@ export const upVoteRessource = async (idRessource: string, fetch: Fetch, token: 
 	return res;
 };
 export const cancelVoteRessource = async (idRessource: string, fetch: Fetch, token: string) => {
-	const res = await fetchApi(`/api/resources/${idRessource}/upvote`, 'PUT', fetch, token);
+	const res = await fetchApi(`/api/resources/${idRessource}/cancelVote`, 'DELETE', fetch, token);
 	return res;
 };
 export const downVoteRessource = async (idRessource: string, fetch: Fetch, token: string) => {
@@ -86,7 +98,7 @@ export const cancelFavRessource = async (idRessource: string, fetch: Fetch, toke
 	return res;
 };
 export const getSelfFavorite = async (fetch: Fetch, token: string) => {
-	const res = await fetchApi<RessourcesResponse>(
+	const res = await fetchApi<{ [x in number]: Favorite }>(
 		`/api/Favoris/getallfavorisbyiduser`,
 		'GET',
 		fetch,
@@ -95,8 +107,8 @@ export const getSelfFavorite = async (fetch: Fetch, token: string) => {
 	return res;
 };
 export const getSelfHistory = async (fetch: Fetch, token: string) => {
-	const res = await fetchApi<RessourcesResponse>(
-		`/api/Consultations/getallconsultationsbyiduser`,
+	const res = await fetchApi<{ [x in number]: History }>(
+		`/api/consultations/getallconsultationsbyiduser`,
 		'GET',
 		fetch,
 		token
@@ -123,11 +135,37 @@ export const createRessource = async (
 	fetch: Fetch,
 	token: string,
 	title: string,
-	description: string
+	description: string,
+	categorieId: number
 ) => {
 	const res = await fetchApi(`/api/Resources`, 'POST', fetch, token, {
 		title,
-		description
+		description,
+		categorieId
+	});
+	return res;
+};
+export const getCategories = async () => {
+	const res = await fetchApi<{ [x in number]: Categorie }>(`/api/categories`, 'GET', fetch);
+	return res;
+};
+export const getCategorie = async (id: string) => {
+	const res = await fetchApi<Categorie>(`/api/categories/${id}`, 'GET', fetch);
+	return res;
+};
+export const deleteCategorie = async (id: string, token: string) => {
+	const res = await fetchApi<Categorie>(`/api/categories/${id}`, 'DELETE', fetch, token);
+	return res;
+};
+export const modifyCategorie = async (id: string, token: string, categorie: Categorie) => {
+	const res = await fetchApi<Categorie>(`/api/categories/${id}`, 'PUT', fetch, token, {
+		...categorie
+	});
+	return res;
+};
+export const createCategorie = async (token: string, categorie: { name: string }) => {
+	const res = await fetchApi<Categorie>(`/api/categories`, 'POST', fetch, token, {
+		...categorie
 	});
 	return res;
 };

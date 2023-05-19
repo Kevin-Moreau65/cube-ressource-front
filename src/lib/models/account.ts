@@ -82,3 +82,7 @@ export const suspendUser = async (token: string, idUser: string) => {
 	const res = await fetchApi<User>(`/api/users/${idUser}`, 'DELETE', fetch, token);
 	return res;
 };
+export const unbanUser = async (token: string, idUser: string) => {
+	const res = await fetchApi<User>(`/api/users/unban/${idUser}`, 'PUT', fetch, token);
+	return res;
+};

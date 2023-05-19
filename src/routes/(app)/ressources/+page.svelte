@@ -150,6 +150,7 @@
 					<div class="title-ressources">
 						<p>{ressource.title}</p>
 						<p>
+							{ressource.categorie.name}
 							{convertDate(ressource.creationDate)}
 						</p>
 					</div>

@@ -130,6 +130,9 @@
 					{data.data.description}
 				</p>
 			</div>
+			<div>
+				{data.data.upVote - data.data.downVote}
+			</div>
 			<div class="actions" style={$user.id === 0 ? 'display: none' : ''}>
 				<div class="vote">
 					<div
