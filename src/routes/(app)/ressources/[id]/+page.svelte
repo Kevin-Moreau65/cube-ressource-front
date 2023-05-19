@@ -13,7 +13,7 @@
 	import convertDate from '$lib/utils/convert-date';
 	import { storeToast } from 'sveltle-component-notification';
 	import type { PageData } from './$types';
-	import { postComment, type Comment } from '$lib/models/comment';
+	import { postComment, type Comment, deleteComment } from '$lib/models/comment';
 	import Loading from '$lib/Loading.svelte';
 	storeTitle.set('Ressource');
 	let commentValue = '';
@@ -104,6 +104,26 @@
 			});
 			invalidateAll();
 		} catch (e: any) {
+			storeToast.push({
+				message: e.message || 'Un erreur est survenue, veuillez réessayer plus tard.',
+				type: 'error',
+				timeout: 5000
+			});
+		}
+	};
+	const deleteCom = async (id: number) => {
+		try {
+			isLoading = true;
+			await deleteComment($user.token, id.toString());
+			isLoading = false;
+			storeToast.push({
+				type: 'confirmation',
+				message: 'Commentaire supprimé avec succès',
+				timeout: 5000
+			});
+			await invalidateAll();
+		} catch (e: any) {
+			isLoading = false;
 			storeToast.push({
 				message: e.message || 'Un erreur est survenue, veuillez réessayer plus tard.',
 				type: 'error',
@@ -232,8 +252,7 @@
 					</div>
 					{#if $user.role === Role.Moderator}
 						<div class="actions">
-							<Button title="Supprimer" />
-							<Button title="Editer" />
+							<Button title="Supprimer" action={() => deleteCom(comment.id)} />
 						</div>
 					{/if}
 				</div>

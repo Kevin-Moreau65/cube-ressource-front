@@ -27,3 +27,7 @@ export const postComment = async (
 	const res = await fetchApi('/api/Comments', 'POST', fetch, token, comment);
 	return res;
 };
+export const deleteComment = async (token: string, id: string) => {
+	const res = await fetchApi(`/api/Comments/${id}`, 'DELETE', fetch, token);
+	return res;
+};

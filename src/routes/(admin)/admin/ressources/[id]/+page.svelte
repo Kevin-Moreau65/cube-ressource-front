@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Button from '$lib/Button.svelte';
-	import { deleteRessource, modifyRessource } from '$lib/models/ressources';
+	import { deleteRessource, modifyRessource, restoreRessource } from '$lib/models/ressources';
 	import { storeTitle, user } from '$lib/store';
 	import convertDate from '$lib/utils/convert-date';
 	import { storeToast } from 'sveltle-component-notification';
@@ -15,6 +15,23 @@
 			const res = await deleteRessource($page.params.id, fetch, $user.token);
 			storeToast.push({
 				message: 'Ressource suspendu avec succès',
+				type: 'confirmation',
+				timeout: 5000
+			});
+			await invalidateAll();
+		} catch (e: any) {
+			storeToast.push({
+				message: e.message || 'Une erreur est survenue',
+				type: 'error',
+				timeout: 5000
+			});
+		}
+	};
+	const restoreRes = async () => {
+		try {
+			const res = await restoreRessource($user.token, $page.params.id);
+			storeToast.push({
+				message: 'Ressource restauré avec succès',
 				type: 'confirmation',
 				timeout: 5000
 			});
@@ -43,6 +60,7 @@
 				type: 'confirmation',
 				timeout: 5000
 			});
+			modifyMode = false;
 			await invalidateAll();
 		} catch (e: any) {
 			storeToast.push({
@@ -83,7 +101,7 @@
 			{/if}
 			<Button title="Editer" action={() => (modifyMode ? modifyRes() : (modifyMode = true))} />
 			{#if data.ressource.isDeleted}
-				<Button title="Restaurer" action={deleteRes} />
+				<Button title="Restaurer" action={restoreRes} />
 			{:else}
 				<Button title="Suspendre" action={deleteRes} />
 			{/if}

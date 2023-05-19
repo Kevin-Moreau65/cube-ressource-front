@@ -72,7 +72,26 @@ export const getRessources = async (
 	);
 	return res;
 };
-
+export const getRessourcesAdmin = async (
+	{
+		pageNumber,
+		pageSize,
+		triType,
+		search
+	}: { pageNumber?: string; pageSize?: string; triType?: string; search?: string },
+	fetch: Fetch,
+	token: string
+) => {
+	const res = await fetchApi<RessourcesResponse>(
+		`/admin?${pageNumber ? `PageNumber=${pageNumber}&` : ''}${
+			pageSize ? `PageSize=${pageSize}&` : ''
+		}${triType ? `triType=${triType}&` : ''}${search ? `search=${search}` : ''}`,
+		'GET',
+		fetch,
+		token
+	);
+	return res;
+};
 export const getRessource = async (id: string, fetch: Fetch, token?: string) => {
 	const res = await fetchApi<RessourceResponse>(`/api/resources/${id}`, 'GET', fetch, token);
 	return res;
@@ -143,6 +162,10 @@ export const createRessource = async (
 		description,
 		categorieId
 	});
+	return res;
+};
+export const restoreRessource = async (token: string, id: string) => {
+	const res = await fetchApi(`/api/resources/${id}/restore`, 'PUT', fetch, token);
 	return res;
 };
 export const getCategories = async () => {

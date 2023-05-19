@@ -1,6 +1,8 @@
-import { getRessources } from '$lib/models/ressources';
+import { getRessourcesAdmin } from '$lib/models/ressources';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
+import { user } from '$lib/store';
+import { get } from 'svelte/store';
 
 export const load = (async ({ url, fetch }) => {
 	const searchParam: any = {};
@@ -10,7 +12,7 @@ export const load = (async ({ url, fetch }) => {
 	if (url.searchParams.get('triType')) searchParam.triType = url.searchParams.get('triType');
 	if (url.searchParams.get('search')) searchParam.search = url.searchParams.get('search');
 	try {
-		const result = await getRessources(searchParam, fetch);
+		const result = await getRessourcesAdmin(searchParam, fetch, get(user).token);
 		return {
 			result
 		};
