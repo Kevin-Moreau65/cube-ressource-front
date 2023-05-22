@@ -59,9 +59,6 @@
 					{/each}
 				</select>
 			</div>
-			<div class="ressource-files">
-				<p>Joindre un fichier :</p>
-			</div>
 			<Button title="Créer la ressource" action={addResource} style="height: auto;" />
 		</div>
 	</div>
@@ -117,7 +114,9 @@
 		overflow: auto;
 		padding-bottom: 10px;
 	}
-
+	.ressource-categorie {
+		margin-bottom: 8px;
+	}
 	::placeholder {
 		/* Chrome, Firefox, Opera, Safari 10.1+ */
 		color: var(--accent-color);
